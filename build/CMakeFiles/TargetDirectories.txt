@@ -1,0 +1,10 @@
+/home/fly/projects/chatServer/chatServer/build/CMakeFiles/edit_cache.dir
+/home/fly/projects/chatServer/chatServer/build/CMakeFiles/rebuild_cache.dir
+/home/fly/projects/chatServer/chatServer/build/src/CMakeFiles/edit_cache.dir
+/home/fly/projects/chatServer/chatServer/build/src/CMakeFiles/rebuild_cache.dir
+/home/fly/projects/chatServer/chatServer/build/src/server/CMakeFiles/chatServer.dir
+/home/fly/projects/chatServer/chatServer/build/src/server/CMakeFiles/edit_cache.dir
+/home/fly/projects/chatServer/chatServer/build/src/server/CMakeFiles/rebuild_cache.dir
+/home/fly/projects/chatServer/chatServer/build/src/client/CMakeFiles/chatClient.dir
+/home/fly/projects/chatServer/chatServer/build/src/client/CMakeFiles/edit_cache.dir
+/home/fly/projects/chatServer/chatServer/build/src/client/CMakeFiles/rebuild_cache.dir
