@@ -6,5 +6,6 @@ cd build
 rm *rf *
 cmake ..
 make
+也可以使用脚本autobuild.sh实现自动编译
 
 
