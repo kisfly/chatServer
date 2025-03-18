@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/chatClient.dir/main.cpp.o -o /home/fly/projects/chatServer/chatServer/bin/chatClient  -lpthread
+/usr/bin/g++ -g CMakeFiles/chatClient.dir/main.cpp.o -o /home/fly/projects/chatServer/chatServer/bin/chatClient   -L/home/fly/projects/chatServer/chatServer/lib  -Wl,-rpath,/home/fly/projects/chatServer/chatServer/lib /home/fly/projects/chatServer/chatServer/lib/libmycrypto_lib.a -lpthread -lmuduo_net -lmuduo_base -lssl -lcrypto

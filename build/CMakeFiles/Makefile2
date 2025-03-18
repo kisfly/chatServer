@@ -64,15 +64,33 @@ CMAKE_BINARY_DIR = /home/fly/projects/chatServer/chatServer/build
 
 # The main recursive "all" target.
 all: src/all
+all: crypto/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
 preinstall: src/preinstall
+preinstall: crypto/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: src/clean
+clean: crypto/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory crypto
+
+# Recursive "all" directory target.
+crypto/all: crypto/CMakeFiles/mycrypto_lib.dir/all
+.PHONY : crypto/all
+
+# Recursive "preinstall" directory target.
+crypto/preinstall:
+.PHONY : crypto/preinstall
+
+# Recursive "clean" directory target.
+crypto/clean: crypto/CMakeFiles/mycrypto_lib.dir/clean
+.PHONY : crypto/clean
 
 #=============================================================================
 # Directory level rules for directory src
@@ -126,7 +144,7 @@ src/server/clean: src/server/CMakeFiles/chatServer.dir/clean
 # Target rules for target src/server/CMakeFiles/chatServer.dir
 
 # All Build rule for target.
-src/server/CMakeFiles/chatServer.dir/all:
+src/server/CMakeFiles/chatServer.dir/all: crypto/CMakeFiles/mycrypto_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f src/server/CMakeFiles/chatServer.dir/build.make src/server/CMakeFiles/chatServer.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/server/CMakeFiles/chatServer.dir/build.make src/server/CMakeFiles/chatServer.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=3,4,5,6,7,8,9,10,11,12,13 "Built target chatServer"
@@ -134,7 +152,7 @@ src/server/CMakeFiles/chatServer.dir/all:
 
 # Build rule for subdir invocation for target.
 src/server/CMakeFiles/chatServer.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 16
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/server/CMakeFiles/chatServer.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 0
 .PHONY : src/server/CMakeFiles/chatServer.dir/rule
@@ -152,7 +170,7 @@ src/server/CMakeFiles/chatServer.dir/clean:
 # Target rules for target src/client/CMakeFiles/chatClient.dir
 
 # All Build rule for target.
-src/client/CMakeFiles/chatClient.dir/all:
+src/client/CMakeFiles/chatClient.dir/all: crypto/CMakeFiles/mycrypto_lib.dir/all
 	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/chatClient.dir/build.make src/client/CMakeFiles/chatClient.dir/depend
 	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/chatClient.dir/build.make src/client/CMakeFiles/chatClient.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=1,2 "Built target chatClient"
@@ -160,7 +178,7 @@ src/client/CMakeFiles/chatClient.dir/all:
 
 # Build rule for subdir invocation for target.
 src/client/CMakeFiles/chatClient.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 src/client/CMakeFiles/chatClient.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 0
 .PHONY : src/client/CMakeFiles/chatClient.dir/rule
@@ -173,6 +191,32 @@ chatClient: src/client/CMakeFiles/chatClient.dir/rule
 src/client/CMakeFiles/chatClient.dir/clean:
 	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/chatClient.dir/build.make src/client/CMakeFiles/chatClient.dir/clean
 .PHONY : src/client/CMakeFiles/chatClient.dir/clean
+
+#=============================================================================
+# Target rules for target crypto/CMakeFiles/mycrypto_lib.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/mycrypto_lib.dir/all:
+	$(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/mycrypto_lib.dir/build.make crypto/CMakeFiles/mycrypto_lib.dir/depend
+	$(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/mycrypto_lib.dir/build.make crypto/CMakeFiles/mycrypto_lib.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=14,15,16,17,18 "Built target mycrypto_lib"
+.PHONY : crypto/CMakeFiles/mycrypto_lib.dir/all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/mycrypto_lib.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 crypto/CMakeFiles/mycrypto_lib.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fly/projects/chatServer/chatServer/build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/mycrypto_lib.dir/rule
+
+# Convenience name for target.
+mycrypto_lib: crypto/CMakeFiles/mycrypto_lib.dir/rule
+.PHONY : mycrypto_lib
+
+# clean rule for target.
+crypto/CMakeFiles/mycrypto_lib.dir/clean:
+	$(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/mycrypto_lib.dir/build.make crypto/CMakeFiles/mycrypto_lib.dir/clean
+.PHONY : crypto/CMakeFiles/mycrypto_lib.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

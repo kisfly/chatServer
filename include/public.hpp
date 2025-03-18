@@ -1,5 +1,5 @@
-#ifndef __STDC_VERSION__
-#define __STDC_VERSION__ 
+#ifndef PUBLIC_H
+#define PUBLIC_H 
 
 //消息类型
 enum EnMsgType {
@@ -13,7 +13,10 @@ enum EnMsgType {
 
     CREATE_GROUP_MSG, // 创建群组消息
     ADD_GROUP_MSG, //加入群组
-    GROUP_CHAT_MSG, // 群聊天   
+    GROUP_CHAT_MSG, // 群聊天 
+    RSA_KEY_MSG, //RSA发送公钥消息
+    AES_KEY_MSG, //AES发送密钥消息
+    AES_KEY_ACK,//服务端发给客户端-密钥是否发送成功
 };
 
 

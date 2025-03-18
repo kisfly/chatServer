@@ -24,6 +24,8 @@ private:
     void onMessage(const TcpConnectionPtr& conn,//tcp连接
         Buffer* buffer,                           //缓冲区
         Timestamp time);                         //接收到数据的时间信息
+    //发送公钥给客户端
+    void sendRSAKey(const TcpConnectionPtr& conn);        
 
 private:
     TcpServer _server;

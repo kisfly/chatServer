@@ -73,15 +73,15 @@ src/client/CMakeFiles/chatClient.dir/main.cpp.o: src/client/CMakeFiles/chatClien
 src/client/CMakeFiles/chatClient.dir/main.cpp.o: /home/fly/projects/chatServer/chatServer/src/client/main.cpp
 src/client/CMakeFiles/chatClient.dir/main.cpp.o: src/client/CMakeFiles/chatClient.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object src/client/CMakeFiles/chatClient.dir/main.cpp.o"
-	cd /home/fly/projects/chatServer/chatServer/build/src/client && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/client/CMakeFiles/chatClient.dir/main.cpp.o -MF CMakeFiles/chatClient.dir/main.cpp.o.d -o CMakeFiles/chatClient.dir/main.cpp.o -c /home/fly/projects/chatServer/chatServer/src/client/main.cpp
+	cd /home/fly/projects/chatServer/chatServer/build/src/client && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/client/CMakeFiles/chatClient.dir/main.cpp.o -MF CMakeFiles/chatClient.dir/main.cpp.o.d -o CMakeFiles/chatClient.dir/main.cpp.o -c /home/fly/projects/chatServer/chatServer/src/client/main.cpp
 
 src/client/CMakeFiles/chatClient.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/chatClient.dir/main.cpp.i"
-	cd /home/fly/projects/chatServer/chatServer/build/src/client && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fly/projects/chatServer/chatServer/src/client/main.cpp > CMakeFiles/chatClient.dir/main.cpp.i
+	cd /home/fly/projects/chatServer/chatServer/build/src/client && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fly/projects/chatServer/chatServer/src/client/main.cpp > CMakeFiles/chatClient.dir/main.cpp.i
 
 src/client/CMakeFiles/chatClient.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/chatClient.dir/main.cpp.s"
-	cd /home/fly/projects/chatServer/chatServer/build/src/client && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fly/projects/chatServer/chatServer/src/client/main.cpp -o CMakeFiles/chatClient.dir/main.cpp.s
+	cd /home/fly/projects/chatServer/chatServer/build/src/client && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fly/projects/chatServer/chatServer/src/client/main.cpp -o CMakeFiles/chatClient.dir/main.cpp.s
 
 # Object files for target chatClient
 chatClient_OBJECTS = \
@@ -92,6 +92,7 @@ chatClient_EXTERNAL_OBJECTS =
 
 /home/fly/projects/chatServer/chatServer/bin/chatClient: src/client/CMakeFiles/chatClient.dir/main.cpp.o
 /home/fly/projects/chatServer/chatServer/bin/chatClient: src/client/CMakeFiles/chatClient.dir/build.make
+/home/fly/projects/chatServer/chatServer/bin/chatClient: /home/fly/projects/chatServer/chatServer/lib/libmycrypto_lib.a
 /home/fly/projects/chatServer/chatServer/bin/chatClient: src/client/CMakeFiles/chatClient.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/fly/projects/chatServer/chatServer/bin/chatClient"
 	cd /home/fly/projects/chatServer/chatServer/build/src/client && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/chatClient.dir/link.txt --verbose=$(VERBOSE)

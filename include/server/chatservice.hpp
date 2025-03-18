@@ -1,20 +1,25 @@
 #ifndef CHATSERVER_MAIN_H
 #define CHATSERVER_MAIN_H
 
-#include<muduo/net/TcpServer.h>
+
 #include<unordered_map>
 #include<functional>
 #include<mutex>
-using namespace muduo;
-using namespace muduo::net;
-using namespace std;
-
 #include"json.hpp"
 #include"redis.hpp"
 #include"UserModel.hpp"
 #include"friendmodel.hpp"
 #include"groupmodel.hpp"
 #include"offlinemessagemodel.hpp"
+#include"RsaCrypto.h"
+#include"AesCrypto.h"
+#include"Base64.h"
+#include<muduo/net/TcpServer.h>
+using namespace muduo;
+using namespace muduo::net;
+using namespace std;
+
+
 using json=nlohmann::json;
 
 //处理消息的事件回调方法类型
@@ -49,10 +54,22 @@ public:
     void loginout(const TcpConnectionPtr& conn, json& js, Timestamp time);
     // 从redis消息队列中获取订阅的消息
     void handleRedisSubscribeMessage(int userid, string msg);
+    //处理客户端发送过来的密钥
+    void handleKey(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    //返回对称加密的对象
+    AesCrypto* getAesCrypto(const TcpConnectionPtr& conn);
+    //使用对称加密的密钥加密数据,并返回加密后的数据
+    string aesEncrypt(string data,AesCrypto* cipher);
+    //对数据使用对称加密的密钥解密
+    string aesDecrypt(string data,AesCrypto* cipher);
 
 private:
     //构造函数私有化，防止在类外创建实例
     chatService();
+    ~chatService()
+    {
+        //delete m_aescry;
+    }
 
     //存储消息id和其对应的业务处理方法
     unordered_map<int, MsgHandler> _msgHandlerMap;
@@ -65,12 +82,20 @@ private:
 
     //存储在线用户的通信连接
     unordered_map<int, TcpConnectionPtr> _userConnMap;
+    //存储每一个客户端连接的密钥
+    unordered_map<TcpConnectionPtr,AesCrypto*> _connKeyMap;
 
     //针对在线用户的通信连接的访问是一个多线程问题，但是STL是线程不安全的，所以需要使用互斥锁
     mutex _connMutex;//保证_userConnMap在多线程中安全
+    // 保证_connKeyMap在多线程中安全
+    mutex _keyMutex;
 
     // redis操作对象
     Redis _redis;
+    //存储与客户端通信的密钥
+    //string m_aesKey;
+    //对称加密的对象-发送数据解析数据都需要使用它
+    //AesCrypto* m_aescry=nullptr;
 };
 
 

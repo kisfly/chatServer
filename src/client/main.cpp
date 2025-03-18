@@ -1,7 +1,6 @@
-#include"json.hpp"
 #include<iostream>
-#include <iomanip>
-#include <sstream>
+#include<iomanip>
+#include<sstream>
 #include<string>
 #include<vector>
 #include<chrono>
@@ -10,8 +9,6 @@
 #include<semaphore.h>
 #include<atomic>
 #include<unordered_map>
-using namespace std;
-using json=nlohmann::json;
 
 #include<unistd.h>
 #include<sys/socket.h>
@@ -19,16 +16,28 @@ using json=nlohmann::json;
 #include<sys/types.h>
 #include<netinet/in.h>
 
-#include<group.hpp>
-#include<user.hpp>
+#include"json.hpp"
+#include"group.hpp"
+#include"user.hpp"
 #include"public.hpp"
+#include"RsaCrypto.h"
+#include"AesCrypto.h"
+#include"Hash.h"
+#include"Base64.h"
 
+#include <openssl/rand.h>
+using namespace std;
+using json=nlohmann::json;
 //记录当前系统登录的用户信息
 User g_currentUser;
 //记录当前登录用户的好友列表
 vector<User> g_currentUserFriendList;
 //记录当前登录用户的群组列表
 vector<Group> g_currentUserGroupList;
+//对称加密密钥
+string m_aeskey;
+//对称加密的对象
+AesCrypto *m_aescry=nullptr;
 //读写信号量，用来通知读写进程
 sem_t g_rwLock;
 //标识-用来标识是否登录成功-使用原子量保证互斥访问
@@ -49,6 +58,12 @@ void mainMenu(int clientfd);
 void doLogin(json &js);
 //处理注册功能
 void doReg(json &js);
+//处理服务端发送过来的公钥
+void handleServerPubkey(json &js,int clientfd);
+//使用对称加密的密钥加密数据,并返回加密后的数据
+string aesEncrypt(string data);
+//对数据使用对称加密的密钥解密
+string aesDecrypt(string data);
 
 //main主线程用作发送线程，子线程用作接收线程
 int main(int argc, char *argv[])
@@ -85,7 +100,7 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-     //连接服务器成功，启动接受线程负责接收数据
+    //连接服务器成功，启动接受线程负责接收数据
     thread readTask(readTaskHandler, clientfd);
     readTask.detach();
     //初始化信号量 0-表示线程间通信 1-表示进行间通信。第三个参数表示信号资源数量-初始为0  
@@ -125,10 +140,15 @@ int main(int argc, char *argv[])
 
             //将json转换成字符串并发送
             string buf = js.dump();
-            int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+            cout<<"==========================================="<<endl;
+            cout<<buf<<endl;
+            cout<<"==========================================="<<endl;
+            //加密
+            string aesData=aesEncrypt(buf);
+            int len=send(clientfd, aesData.c_str(), aesData.size(), 0);
             if(len==-1)
             {
-                cerr<<"send login message error: "<<buf<<endl;
+                cerr<<"send login message error: "<<aesData<<endl;
             }
 
             //阻塞在信号量，等待读线程进行处理
@@ -163,7 +183,8 @@ int main(int argc, char *argv[])
 
             //将json转换成字符串并发送
             string buf = js.dump();
-            int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+            buf=aesEncrypt(buf);
+            int len=send(clientfd, buf.c_str(), strlen(buf.c_str()), 0);
             if(len==-1)
             {
                 cerr<<"send register message error: "<<buf<<endl;
@@ -212,6 +233,7 @@ void showCurrentUserData()
             cout<<user.getId()<<" "<<user.getName()<<" "<<user.getState()
             <<" "<<user.getRole()<<endl;    
         }
+        cout<<"========================================================"<<endl;
     }
     cout<<"<========================================================>"<<endl;
 }
@@ -222,6 +244,8 @@ void readTaskHandler(int clientfd)
     {
         char buffer[1024*10]={0};
         int len=recv(clientfd, buffer, sizeof(buffer)-1, 0);
+        cout<<"接收的数据长度strlen(buffer)："<<strlen(buffer)<<endl;
+        cout<<"接收的数据长度len："<<strlen(buffer)<<endl;
         if(len==-1) 
         {
             //打印错误原因
@@ -236,7 +260,19 @@ void readTaskHandler(int clientfd)
             close(clientfd);
             exit(0);
         }
-        json js = json::parse(buffer);
+        cout<<"解析json数据"<<endl;
+        string str=buffer;     
+        cout<<"接收的数据长度str.size()："<<str.size()<<endl; 
+        if(m_aescry)
+        {      
+            //cout<<"接收的数据长度base之前："<<str.size()<<endl; 
+            //cout<<"接收的数据长度base之后："<<str.size()<<endl; 
+            //cout<<"接收的数据长度不使用base："<<str.size()<<endl;
+            str=aesDecrypt(str);          
+        }        
+        cout<<"str=buffer6"<<endl;
+        json js = json::parse(str);
+        cout<<"解析json数据完成"<<endl;
         int msgid = js["msgid"].get<int>();
         switch (msgid)
         {
@@ -264,6 +300,27 @@ void readTaskHandler(int clientfd)
         {
             doReg(js);
             sem_post(&g_rwLock);
+        }
+        break;
+        case RSA_KEY_MSG://服务器发送的公钥
+        {
+            //解析公钥-并将密钥发送给服务端
+            handleServerPubkey(js,clientfd);
+        }
+        break;
+        case AES_KEY_ACK://判断密钥是否发放成功
+        {
+            bool result =js["aeskeyOK"].get<bool>();
+            if(result)
+            {
+                cout<<"AES密钥发放成功!"<<endl;    
+                //生成对称加密的对象 
+                m_aescry=new AesCrypto(AesCrypto::AES_CBC_256,m_aeskey);            
+            }
+            else
+            {
+                cerr<<"AES密钥发放失败!"<<endl;
+            }
         }
         break;
         }
@@ -384,7 +441,8 @@ void chat(int clientfd,string str)
     js["content"] = message;
     js["time"]=getCurrentTime();
     string buf = js.dump();
-    int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+    buf=aesEncrypt(buf);
+    int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send chat message error: "<<buf<<endl;
@@ -398,7 +456,8 @@ void addfriend(int clientfd,string str)
     js["id"] = g_currentUser.getId();
     js["friendid"] = friendid;
     string buf = js.dump();
-    int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+    buf=aesEncrypt(buf);
+    int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send add friend message error: "<<buf<<endl;
@@ -420,7 +479,8 @@ void creategroup(int clientfd,string str)
     js["groupname"] =groupName;
     js["groupdesc"] = groupDesc;
     string buf = js.dump();
-    int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+    buf=aesEncrypt(buf);
+    int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send create group message error: "<<buf<<endl;
@@ -435,7 +495,8 @@ void addgroup(int clientfd,string str)
     js["id"] = g_currentUser.getId();
     js["groupid"] = groupId;
     string buf = js.dump();
-    int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+    buf=aesEncrypt(buf);
+    int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send add group message error: "<<buf<<endl;
@@ -458,7 +519,8 @@ void groupchat(int clientfd,string str)
     js["content"] = message;
     js["time"]=getCurrentTime();
     string buf = js.dump();
-    int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+    buf=aesEncrypt(buf);
+    int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send group chat message error: "<<buf<<endl;
@@ -471,7 +533,8 @@ void loginout(int clientfd,string str)
     js["msgid"] = LOGINOUT_MSG;
     js["id"] = g_currentUser.getId();
     string buf = js.dump();
-    int len=send(clientfd, buf.c_str(), strlen(buf.c_str())+1, 0);
+    buf=aesEncrypt(buf);
+    int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send loginout message error: "<<buf<<endl;
@@ -501,14 +564,16 @@ void doLogin(json &js)
         //记录当前用户的好友列表信息
         if(js.contains("friends"))
         {
-            vector<string> friends = js["friends"].get<vector<string>>();
-            for(auto& friendId : friends)
-            {
-                json friendJson = json::parse(friendId);
+            //解析js对象里面的array数组
+            json friends1 = json::array();
+            friends1=js["friends"];
+            //vector<string> friends = js["friends"].get<vector<string>>();
+            for(auto& friendId : friends1)
+            {                
                 User friendUser;
-                friendUser.setId(friendJson["id"].get<int>());
-                friendUser.setName(friendJson["name"].get<string>());
-                friendUser.setState(friendJson["state"].get<string>());
+                friendUser.setId(friendId["id"].get<int>());
+                friendUser.setName(friendId["name"].get<string>());
+                friendUser.setState(friendId["state"].get<string>());
                 g_currentUserFriendList.push_back(friendUser);
             }
         }
@@ -516,24 +581,26 @@ void doLogin(json &js)
         //记录当前用户的群组列表信息
         if(js.contains("groups"))
         {
-            vector<string> groups = js["groups"].get<vector<string>>();
-            for(auto& groupId : groups)
+            //解析js对象的里面的array数组
+            json groups1 = json::array();
+            groups1=js["groups"];
+            //vector<string> groups = js["groups"].get<vector<string>>();
+            for(auto& groupId : groups1)
             {
-                json groupJson = json::parse(groupId);
                 Group group;
-                group.setId(groupJson["id"].get<int>());
-                group.setName(groupJson["groupname"].get<string>());
-                group.setDesc(groupJson["groupdesc"].get<string>());
+                group.setId(groupId["id"].get<int>());
+                group.setName(groupId["groupname"].get<string>());
+                group.setDesc(groupId["groupdesc"].get<string>());
 
-                vector<string> users = groupJson["users"].get<vector<string>>();
-                for(auto& userId : users)
+                json userArr = json::array();
+                userArr= groupId["users"];
+                for(auto& userId : userArr)
                 {
-                    json userJson = json::parse(userId);
                     GroupUser groupUser;
-                    groupUser.setId(userJson["id"].get<int>());
-                    groupUser.setName(userJson["name"].get<string>());
-                    groupUser.setState(userJson["state"].get<string>());
-                    groupUser.setRole(userJson["role"].get<string>());
+                    groupUser.setId(userId["id"].get<int>());
+                    groupUser.setName(userId["name"].get<string>());
+                    groupUser.setState(userId["state"].get<string>());
+                    groupUser.setRole(userId["role"].get<string>());
                     group.getUsers().push_back(groupUser);
                 }
 
@@ -581,5 +648,70 @@ void doReg(json &js)
     {
         cout<<"name register success,userid is: "<<js["id"]<<endl;
     }    
+}
+
+//处理服务端发送过来的公钥
+void handleServerPubkey(json &js,int clientfd)
+{
+    //公钥
+    string pubkey=js["pubkey"].get<string>();
+    //签名后的数据
+    string signedData=js["signedData"].get<string>();
+    //先验证签名是否正确
+    RsaCrypto rsa;
+    rsa.parseStringToKey(pubkey, RsaCrypto::PublicKey);
+    //校验签名
+    if(!rsa.verify(signedData, pubkey))
+    {
+        cerr<<"verify signature failed!"<<endl;
+        return;
+    }
+    {
+        cout<<"校验签名成功"<<endl;
+        //生成对称加密的密钥
+        const int KEY_LENGTH = 32;  // AES-256需要32字节
+        unsigned char key_buf[KEY_LENGTH];    
+        if (RAND_bytes(key_buf, KEY_LENGTH) != 1) {  // 关键安全接口
+            cout<<"密钥生成失败\n";
+        }    
+        string aeskey(reinterpret_cast<char*>(key_buf), KEY_LENGTH);
+        m_aeskey=aeskey;
+        //将密钥发送给服务端
+        json js1;
+        js1["msgid"] = AES_KEY_MSG;
+        //使用服务端发送过来的公钥进行加密     
+        js1["aeskey"] = rsa.pubKeyEncrypt(aeskey);     
+        //将对称加密的密钥使用哈希
+        Hash h1(HashType::Sha224);
+        h1.addData(aeskey); 
+        string md1 = h1.result(Hash::Type::Binary);
+        //使用base64算法，将md1转为文本格式
+        Base64 base;
+        string baseMd1 = base.encode(md1);
+        js1["aeshash"]=baseMd1;
+        string buf = js1.dump();
+        int len=send(clientfd, buf.c_str(), buf.size(), 0);
+        if(len==-1)
+        {
+            cerr<<"send aes key message error: "<<buf<<endl;
+        }
+        else
+        {
+            cout<<"send aes key message success: "<<endl;
+        }
+    }
+}
+
+//使用对称加密的密钥加密数据,并返回加密后的数据
+string aesEncrypt(string data)
+{    
+    string str=m_aescry->encrypt(data);;
+    return str;
+}
+//对数据使用对称加密的密钥解密
+string aesDecrypt(string data)
+{
+    string str1=m_aescry->decrypt(data);
+    return str1;
 }
 

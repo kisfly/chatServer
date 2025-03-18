@@ -1,7 +1,15 @@
+#include<functional>
+#include<fstream>
+#include<sstream>
 #include"chatserver.hpp"
 #include"json.hpp"
+#include"public.hpp"
 #include"chatservice.hpp"
-#include<functional>
+#include"RsaCrypto.h"
+#include"Base64.h"
+
+#include<muduo/base/Logging.h>
+
 using namespace std;
 using namespace placeholders;
 using json=nlohmann::json;
@@ -19,6 +27,10 @@ chatServer::chatServer(EventLoop* loop, const InetAddress& addr, const string& n
 
 void chatServer::start()
 {
+    //生成非对称加密密钥对
+    RsaCrypto* crypt=new RsaCrypto;
+    crypt->generateRsaKey(RsaCrypto::BITS_2k);
+    delete crypt;
     _server.start();
 }
 
@@ -35,7 +47,9 @@ void chatServer::onConnection(const TcpConnectionPtr& conn)
     }
     else
     {
-
+        //用户成功连接
+        LOG_INFO<<"publickey send client\n";
+        sendRSAKey(conn);
     }
 }
     
@@ -46,6 +60,11 @@ void chatServer::onMessage(const TcpConnectionPtr& conn,//tcp连接
 {
     //获取客户端发送过来的信息
     string buf=buffer->retrieveAllAsString();
+    //解密处理
+    if(chatService::getInstance()->getAesCrypto(conn))
+    {
+        buf = chatService::getInstance()->aesDecrypt(buf,chatService::getInstance()->getAesCrypto(conn));
+    }
     //数据的反序列化
     json js=json::parse(buf);
 
@@ -56,5 +75,28 @@ void chatServer::onMessage(const TcpConnectionPtr& conn,//tcp连接
     auto msgHandler=chatService::getInstance()->getHandler(msgid);
     //执行事件处理器
     msgHandler(conn, js, time);
+}
+
+//发送RSA公钥给客户端
+void chatServer::sendRSAKey(const TcpConnectionPtr& conn)
+{
+    ifstream ifs("public.pem");
+    if (!ifs.is_open())
+    {
+        LOG_ERROR << "open public.pem failed\n";
+        return;
+    }
+    stringstream sstr;
+    sstr<<ifs.rdbuf();
+    string data=sstr.str();
+    //发送数据
+    json js;
+    js["msgid"] = RSA_KEY_MSG;
+    js["pubkey"] = data;
+    //设置签名
+    RsaCrypto rsa("private.pem",RsaCrypto::PrivateKey);
+    js["signedData"]=rsa.sign(data);
+    //发送数据
+    conn->send(js.dump());
 
 }

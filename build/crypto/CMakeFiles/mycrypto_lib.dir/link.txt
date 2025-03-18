@@ -1,0 +1,2 @@
+/usr/bin/ar qc /home/fly/projects/chatServer/chatServer/lib/libmycrypto_lib.a CMakeFiles/mycrypto_lib.dir/AesCrypto.cpp.o CMakeFiles/mycrypto_lib.dir/Base64.cpp.o CMakeFiles/mycrypto_lib.dir/Hash.cpp.o CMakeFiles/mycrypto_lib.dir/RsaCrypto.cpp.o
+/usr/bin/ranlib /home/fly/projects/chatServer/chatServer/lib/libmycrypto_lib.a

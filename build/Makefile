@@ -142,6 +142,19 @@ chatClient/fast:
 	$(MAKE) $(MAKESILENT) -f src/client/CMakeFiles/chatClient.dir/build.make src/client/CMakeFiles/chatClient.dir/build
 .PHONY : chatClient/fast
 
+#=============================================================================
+# Target rules for targets named mycrypto_lib
+
+# Build rule for target.
+mycrypto_lib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mycrypto_lib
+.PHONY : mycrypto_lib
+
+# fast build rule for target.
+mycrypto_lib/fast:
+	$(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/mycrypto_lib.dir/build.make crypto/CMakeFiles/mycrypto_lib.dir/build
+.PHONY : mycrypto_lib/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -152,6 +165,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... chatClient"
 	@echo "... chatServer"
+	@echo "... mycrypto_lib"
 .PHONY : help
 
 

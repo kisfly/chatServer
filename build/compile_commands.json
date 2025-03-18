@@ -1,0 +1,92 @@
+[
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/chatserver.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/chatserver.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/chatserver.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/chatserver.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/chatservice.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/chatservice.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/chatservice.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/main.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/main.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/main.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/main.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/db/connectionPool.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/db/connectionPool.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/db/connectionPool.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/db/connectionPool.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/db/db.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/db/db.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/db/db.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/db/db.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/model/UserModel.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/model/UserModel.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/model/UserModel.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/model/UserModel.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/model/friendmodel.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/model/friendmodel.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/model/friendmodel.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/model/friendmodel.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/model/groupmodel.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/model/groupmodel.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/model/groupmodel.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/model/groupmodel.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/model/offlinemessagemodel.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/model/offlinemessagemodel.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/redis/redis.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/redis/redis.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/redis/redis.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/client",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatClient.dir/main.cpp.o -c /home/fly/projects/chatServer/chatServer/src/client/main.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/client/main.cpp",
+  "output": "src/client/CMakeFiles/chatClient.dir/main.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/crypto",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -std=gnu++17 -o CMakeFiles/mycrypto_lib.dir/AesCrypto.cpp.o -c /home/fly/projects/chatServer/chatServer/crypto/AesCrypto.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/crypto/AesCrypto.cpp",
+  "output": "crypto/CMakeFiles/mycrypto_lib.dir/AesCrypto.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/crypto",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -std=gnu++17 -o CMakeFiles/mycrypto_lib.dir/Base64.cpp.o -c /home/fly/projects/chatServer/chatServer/crypto/Base64.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/crypto/Base64.cpp",
+  "output": "crypto/CMakeFiles/mycrypto_lib.dir/Base64.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/crypto",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -std=gnu++17 -o CMakeFiles/mycrypto_lib.dir/Hash.cpp.o -c /home/fly/projects/chatServer/chatServer/crypto/Hash.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/crypto/Hash.cpp",
+  "output": "crypto/CMakeFiles/mycrypto_lib.dir/Hash.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/crypto",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -std=gnu++17 -o CMakeFiles/mycrypto_lib.dir/RsaCrypto.cpp.o -c /home/fly/projects/chatServer/chatServer/crypto/RsaCrypto.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/crypto/RsaCrypto.cpp",
+  "output": "crypto/CMakeFiles/mycrypto_lib.dir/RsaCrypto.cpp.o"
+}
+]
