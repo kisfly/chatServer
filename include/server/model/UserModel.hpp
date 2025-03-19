@@ -1,6 +1,8 @@
 #ifndef USERMODEL_H
 #define USERMODEL_H
 #include"user.hpp"
+#include<vector>
+using namespace std;
 //User数据库表的数据操作类
 class UserModel
 {
@@ -13,6 +15,8 @@ public:
     bool updateState(User& user);
     //重置用户的状态信息
     void resetState();
+    //获取数据库中所有用户数据
+    vector<User> getAllUser();
 };
 
 #endif

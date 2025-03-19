@@ -195,10 +195,24 @@ src/server/CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.s: cmake_forc
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.s"
 	cd /home/fly/projects/chatServer/chatServer/build/src/server && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fly/projects/chatServer/chatServer/src/server/model/offlinemessagemodel.cpp -o CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.s
 
+src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o: src/server/CMakeFiles/chatServer.dir/flags.make
+src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o: /home/fly/projects/chatServer/chatServer/src/server/redis/chatRedis.cpp
+src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o: src/server/CMakeFiles/chatServer.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o"
+	cd /home/fly/projects/chatServer/chatServer/build/src/server && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o -MF CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o.d -o CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/redis/chatRedis.cpp
+
+src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/chatServer.dir/redis/chatRedis.cpp.i"
+	cd /home/fly/projects/chatServer/chatServer/build/src/server && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/fly/projects/chatServer/chatServer/src/server/redis/chatRedis.cpp > CMakeFiles/chatServer.dir/redis/chatRedis.cpp.i
+
+src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/chatServer.dir/redis/chatRedis.cpp.s"
+	cd /home/fly/projects/chatServer/chatServer/build/src/server && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/fly/projects/chatServer/chatServer/src/server/redis/chatRedis.cpp -o CMakeFiles/chatServer.dir/redis/chatRedis.cpp.s
+
 src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o: src/server/CMakeFiles/chatServer.dir/flags.make
 src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o: /home/fly/projects/chatServer/chatServer/src/server/redis/redis.cpp
 src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o: src/server/CMakeFiles/chatServer.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o"
 	cd /home/fly/projects/chatServer/chatServer/build/src/server && /usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o -MF CMakeFiles/chatServer.dir/redis/redis.cpp.o.d -o CMakeFiles/chatServer.dir/redis/redis.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/redis/redis.cpp
 
 src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.i: cmake_force
@@ -220,6 +234,7 @@ chatServer_OBJECTS = \
 "CMakeFiles/chatServer.dir/model/friendmodel.cpp.o" \
 "CMakeFiles/chatServer.dir/model/groupmodel.cpp.o" \
 "CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.o" \
+"CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o" \
 "CMakeFiles/chatServer.dir/redis/redis.cpp.o"
 
 # External object files for target chatServer
@@ -234,11 +249,12 @@ chatServer_EXTERNAL_OBJECTS =
 /home/fly/projects/chatServer/chatServer/bin/chatServer: src/server/CMakeFiles/chatServer.dir/model/friendmodel.cpp.o
 /home/fly/projects/chatServer/chatServer/bin/chatServer: src/server/CMakeFiles/chatServer.dir/model/groupmodel.cpp.o
 /home/fly/projects/chatServer/chatServer/bin/chatServer: src/server/CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.o
+/home/fly/projects/chatServer/chatServer/bin/chatServer: src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o
 /home/fly/projects/chatServer/chatServer/bin/chatServer: src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o
 /home/fly/projects/chatServer/chatServer/bin/chatServer: src/server/CMakeFiles/chatServer.dir/build.make
 /home/fly/projects/chatServer/chatServer/bin/chatServer: /home/fly/projects/chatServer/chatServer/lib/libmycrypto_lib.a
 /home/fly/projects/chatServer/chatServer/bin/chatServer: src/server/CMakeFiles/chatServer.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable /home/fly/projects/chatServer/chatServer/bin/chatServer"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/fly/projects/chatServer/chatServer/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable /home/fly/projects/chatServer/chatServer/bin/chatServer"
 	cd /home/fly/projects/chatServer/chatServer/build/src/server && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/chatServer.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

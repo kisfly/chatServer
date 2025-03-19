@@ -25,7 +25,9 @@ private:
         Buffer* buffer,                           //缓冲区
         Timestamp time);                         //接收到数据的时间信息
     //发送公钥给客户端
-    void sendRSAKey(const TcpConnectionPtr& conn);        
+    void sendRSAKey(const TcpConnectionPtr& conn);    
+    //生成密钥对并保存到redis数据库中
+    void generateRsaKeyAndSave();    
 
 private:
     TcpServer _server;

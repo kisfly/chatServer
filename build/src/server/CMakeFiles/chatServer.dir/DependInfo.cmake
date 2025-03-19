@@ -17,6 +17,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/fly/projects/chatServer/chatServer/src/server/model/friendmodel.cpp" "src/server/CMakeFiles/chatServer.dir/model/friendmodel.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/model/friendmodel.cpp.o.d"
   "/home/fly/projects/chatServer/chatServer/src/server/model/groupmodel.cpp" "src/server/CMakeFiles/chatServer.dir/model/groupmodel.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/model/groupmodel.cpp.o.d"
   "/home/fly/projects/chatServer/chatServer/src/server/model/offlinemessagemodel.cpp" "src/server/CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/model/offlinemessagemodel.cpp.o.d"
+  "/home/fly/projects/chatServer/chatServer/src/server/redis/chatRedis.cpp" "src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o.d"
   "/home/fly/projects/chatServer/chatServer/src/server/redis/redis.cpp" "src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o.d"
   )
 

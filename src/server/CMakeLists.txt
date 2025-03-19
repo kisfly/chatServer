@@ -16,6 +16,6 @@ add_executable(chatServer ${SRC_LIST} ${DB_LIST} ${MODEL_LIST} ${REDIS_LIST})
 
 
 #添加需要链接的动态库
-target_link_libraries(chatServer muduo_net muduo_base mysqlclient hiredis pthread)
+target_link_libraries(chatServer muduo_net muduo_base mysqlclient hiredis redis++ pthread)
 
 

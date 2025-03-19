@@ -322,9 +322,8 @@ src/server/CMakeFiles/chatServer.dir/chatserver.cpp.o: \
  /usr/local/include/hiredis/sds.h /usr/local/include/hiredis/alloc.h \
  /usr/include/c++/11/thread /usr/include/c++/11/bits/std_thread.h \
  /usr/include/c++/11/bits/this_thread_sleep.h \
- /home/fly/projects/chatServer/chatServer/include/server/model/UserModel.hpp \
- /home/fly/projects/chatServer/chatServer/include/server/model/user.hpp \
  /home/fly/projects/chatServer/chatServer/include/server/model/friendmodel.hpp \
+ /home/fly/projects/chatServer/chatServer/include/server/model/user.hpp \
  /home/fly/projects/chatServer/chatServer/include/server/model/groupmodel.hpp \
  /home/fly/projects/chatServer/chatServer/include/server/model/group.hpp \
  /home/fly/projects/chatServer/chatServer/include/server/model/groupuser.hpp \
@@ -358,4 +357,39 @@ src/server/CMakeFiles/chatServer.dir/chatserver.cpp.o: \
  /usr/include/openssl/sha.h \
  /home/fly/projects/chatServer/chatServer/include/crypto/AesCrypto.h \
  /home/fly/projects/chatServer/chatServer/include/crypto/Base64.h \
+ /home/fly/projects/chatServer/chatServer/include/server/redis/chatRedis.hpp \
+ /home/fly/projects/chatServer/chatServer/include/server/model/UserModel.hpp \
+ /usr/local/include/sw/redis++/redis++.h \
+ /usr/local/include/sw/redis++/redis.h \
+ /usr/local/include/sw/redis++/connection_pool.h \
+ /usr/include/c++/11/condition_variable /usr/include/c++/11/deque \
+ /usr/include/c++/11/bits/stl_deque.h /usr/include/c++/11/bits/deque.tcc \
+ /usr/local/include/sw/redis++/connection.h \
+ /usr/local/include/sw/redis++/errors.h \
+ /usr/local/include/sw/redis++/reply.h \
+ /usr/local/include/sw/redis++/utils.h \
+ /usr/local/include/sw/redis++/cxx_utils.h /usr/include/c++/11/optional \
+ /usr/include/c++/11/variant /usr/local/include/sw/redis++/tls.h \
+ /usr/local/include/sw/redis++/hiredis_features.h \
+ /usr/local/include/sw/redis++/sentinel.h /usr/include/c++/11/list \
+ /usr/include/c++/11/bits/stl_list.h /usr/include/c++/11/bits/list.tcc \
+ /usr/local/include/sw/redis++/shards.h \
+ /usr/local/include/sw/redis++/command_options.h \
+ /usr/local/include/sw/redis++/subscriber.h \
+ /usr/local/include/sw/redis++/command.h \
+ /usr/local/include/sw/redis++/command_args.h \
+ /usr/local/include/sw/redis++/pipeline.h \
+ /usr/local/include/sw/redis++/transaction.h \
+ /usr/local/include/sw/redis++/redis_uri.h \
+ /usr/local/include/sw/redis++/redis.hpp \
+ /usr/local/include/sw/redis++/redis_cluster.h \
+ /usr/local/include/sw/redis++/shards_pool.h /usr/include/c++/11/random \
+ /usr/include/c++/11/bits/random.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/opt_random.h \
+ /usr/include/c++/11/bits/random.tcc \
+ /usr/local/include/sw/redis++/redis_cluster.hpp \
+ /usr/local/include/sw/redis++/queued_redis.h \
+ /usr/include/c++/11/unordered_set \
+ /usr/include/c++/11/bits/unordered_set.h \
+ /usr/local/include/sw/redis++/queued_redis.hpp \
  /usr/include/muduo/base/Logging.h /usr/include/muduo/base/LogStream.h

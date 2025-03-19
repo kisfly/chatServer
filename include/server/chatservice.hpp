@@ -7,13 +7,14 @@
 #include<mutex>
 #include"json.hpp"
 #include"redis.hpp"
-#include"UserModel.hpp"
+//#include"UserModel.hpp"
 #include"friendmodel.hpp"
 #include"groupmodel.hpp"
 #include"offlinemessagemodel.hpp"
 #include"RsaCrypto.h"
 #include"AesCrypto.h"
 #include"Base64.h"
+#include"chatRedis.hpp"
 #include<muduo/net/TcpServer.h>
 using namespace muduo;
 using namespace muduo::net;
@@ -75,7 +76,7 @@ private:
     unordered_map<int, MsgHandler> _msgHandlerMap;
 
     //数据操作类对象
-    UserModel _userModel;
+    //UserModel _userModel;
     offlineMsgModel _offlineMsgModel;
     FriendModel _friendModel;
     GroupModel _groupModel;
@@ -91,11 +92,9 @@ private:
     mutex _keyMutex;
 
     // redis操作对象
-    Redis _redis;
-    //存储与客户端通信的密钥
-    //string m_aesKey;
-    //对称加密的对象-发送数据解析数据都需要使用它
-    //AesCrypto* m_aescry=nullptr;
+    RedisHir _redis;
+
+    myRedis m_redis;
 };
 
 

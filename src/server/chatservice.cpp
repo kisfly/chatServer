@@ -3,9 +3,6 @@
 #include"public.hpp"
 #include<muduo/base/Logging.h>
 
-
-using namespace muduo;
-
 chatService* chatService::getInstance()
 {
     static chatService service;
@@ -31,6 +28,9 @@ chatService::chatService()
          // 设置上报消息的回调
          _redis.init_notify_handler(bind(&chatService::handleRedisSubscribeMessage, this, _1, _2));
      }
+
+     assert(m_redis.connectRedis());
+     m_redis.loadAllUserToRedis();
 }
 
 //获取消息对应的处理器
@@ -54,7 +54,9 @@ void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
     //获取js中的数据
     int id=js["id"].get<int>();
     string pwd=js["password"];
-    User user =_userModel.query(id);
+    //查询数据库中是否有该用户
+    User user=m_redis.getUserById(id);
+    //User user =_userModel.query(id);
     string sendbuf;
     //id号和密码都正确-登录成功
     if(user.getId()==id && user.getPassword()==pwd)
@@ -94,8 +96,9 @@ void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
         
         //登录成功-更新用户状态
         user.setState("online");
-        _userModel.updateState(user);     
-        
+        //_userModel.updateState(user);     
+        m_redis.updateUser(user);
+
         //订阅通道
         _redis.subscribe(id);
         
@@ -225,7 +228,8 @@ void chatService::reg(const TcpConnectionPtr& conn, json& js, Timestamp time)
     user.setState("offline");
 
     //插入到数据库中
-    if (_userModel.insert(user))
+    //if (_userModel.insert(user))
+    if (m_redis.insertUser(user))
     {
         // 注册成功,创建一个新的js对象，序列化消息并发送
         json response;
@@ -310,7 +314,8 @@ void chatService::clientCloseException(const TcpConnectionPtr& conn)
     if(user.getId()!=-1)
     {
         user.setState("offline");
-        _userModel.updateState(user);
+        //_userModel.updateState(user);
+        m_redis.updateUser(user);
     }
 }
 
@@ -344,7 +349,8 @@ void chatService::oneChat(const TcpConnectionPtr& conn, json& js, Timestamp time
     }
 
     // 查询toid是否在线 
-    User user = _userModel.query(toId);
+    //User user = _userModel.query(toId);
+    User user=m_redis.getUserById(toId);
     if (user.getState() == "online")
     {
         _redis.publish(toId, js.dump());
@@ -358,7 +364,8 @@ void chatService::oneChat(const TcpConnectionPtr& conn, json& js, Timestamp time
 void chatService::reset()
 {
     //把online状态的用户设置为offline
-    _userModel.resetState();
+    //_userModel.resetState();
+    m_redis.resetUserState();
 }
 
 void chatService::addFriend(const TcpConnectionPtr& conn, json& js, Timestamp time)
@@ -453,7 +460,8 @@ void chatService::groupChat(const TcpConnectionPtr& conn, json& js, Timestamp ti
             else
             {
                 // 查询toid是否在线 
-                User user = _userModel.query(userId);
+                //User user = _userModel.query(userId);
+                User user=m_redis.getUserById(userId);
                 if (user.getState() == "online")
                 {
                     _redis.publish(userId, js.dump());
@@ -488,7 +496,8 @@ void chatService::loginout(const TcpConnectionPtr& conn, json& js, Timestamp tim
     _redis.unsubscribe(userid); 
     // 登出
     User user(userid,"","offline");
-    _userModel.updateState(user);
+    //_userModel.updateState(user);
+    m_redis.updateUser(user);
     LOG_INFO << "loginout success, userid: " << userid<<"\n";
 }
 
@@ -529,7 +538,8 @@ void chatService::handleKey(const TcpConnectionPtr& conn, json& js, Timestamp ti
     //获取密钥的哈希值
     string hashkey=js["aeshash"].get<string>();
 
-    RsaCrypto rsa("private.pem",RsaCrypto::PrivateKey);
+    RsaCrypto rsa;
+    rsa.parseStringToKey(m_redis.getRsaKey("privateKey"),RsaCrypto::PrivateKey);
     //使用私钥解密
     string m_aesKey=rsa.priKeyDecrypt(aeskey);
     //校验哈希
@@ -551,7 +561,6 @@ void chatService::handleKey(const TcpConnectionPtr& conn, json& js, Timestamp ti
     resJs["aeskeyOK"]=true;
     conn->send(resJs.dump());
     //生成一个对称加密的对象
-    LOG_INFO<<"AES key length: "<<m_aesKey.length()<<"\n";
     AesCrypto* m_aescry=new AesCrypto(AesCrypto::AES_CBC_256,m_aesKey);
     //插入到哈希表中
     _connKeyMap.insert({conn,m_aescry});

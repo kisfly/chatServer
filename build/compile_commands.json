@@ -55,6 +55,12 @@
 },
 {
   "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
+  "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/redis/chatRedis.cpp",
+  "file": "/home/fly/projects/chatServer/chatServer/src/server/redis/chatRedis.cpp",
+  "output": "src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o"
+},
+{
+  "directory": "/home/fly/projects/chatServer/chatServer/build/src/server",
   "command": "/usr/bin/g++  -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -g -o CMakeFiles/chatServer.dir/redis/redis.cpp.o -c /home/fly/projects/chatServer/chatServer/src/server/redis/redis.cpp",
   "file": "/home/fly/projects/chatServer/chatServer/src/server/redis/redis.cpp",
   "output": "src/server/CMakeFiles/chatServer.dir/redis/redis.cpp.o"

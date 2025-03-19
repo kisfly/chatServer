@@ -7,6 +7,7 @@
 #include"chatservice.hpp"
 #include"RsaCrypto.h"
 #include"Base64.h"
+#include"chatRedis.hpp"
 
 #include<muduo/base/Logging.h>
 
@@ -27,10 +28,7 @@ chatServer::chatServer(EventLoop* loop, const InetAddress& addr, const string& n
 
 void chatServer::start()
 {
-    //生成非对称加密密钥对
-    RsaCrypto* crypt=new RsaCrypto;
-    crypt->generateRsaKey(RsaCrypto::BITS_2k);
-    delete crypt;
+    generateRsaKeyAndSave();
     _server.start();
 }
 
@@ -80,6 +78,30 @@ void chatServer::onMessage(const TcpConnectionPtr& conn,//tcp连接
 //发送RSA公钥给客户端
 void chatServer::sendRSAKey(const TcpConnectionPtr& conn)
 {
+    myRedis m_redis;
+    //连接redis++
+    assert(m_redis.connectRedis());
+    //从redis中获取公钥
+    string data=m_redis.getRsaKey("publicKey");
+    //发送数据
+    json js;
+    js["msgid"] = RSA_KEY_MSG;
+    js["pubkey"] = data;
+    //设置签名
+    RsaCrypto rsa;  
+    rsa.parseStringToKey(m_redis.getRsaKey("privateKey"),RsaCrypto::PrivateKey);
+    js["signedData"]=rsa.sign(data);
+    //发送数据
+    conn->send(js.dump());    
+}
+
+//生成密钥对并保存到redis数据库中
+void chatServer::generateRsaKeyAndSave()
+{
+    //生成非对称加密密钥对
+    RsaCrypto* crypt=new RsaCrypto;
+    crypt->generateRsaKey(RsaCrypto::BITS_2k);
+    //保存公钥到redis
     ifstream ifs("public.pem");
     if (!ifs.is_open())
     {
@@ -89,14 +111,30 @@ void chatServer::sendRSAKey(const TcpConnectionPtr& conn)
     stringstream sstr;
     sstr<<ifs.rdbuf();
     string data=sstr.str();
-    //发送数据
-    json js;
-    js["msgid"] = RSA_KEY_MSG;
-    js["pubkey"] = data;
-    //设置签名
-    RsaCrypto rsa("private.pem",RsaCrypto::PrivateKey);
-    js["signedData"]=rsa.sign(data);
-    //发送数据
-    conn->send(js.dump());
+    myRedis m_redis;
+    //连接redis++
+    assert(m_redis.connectRedis());
+    //清空当前数据库
+    m_redis.clearData();
+    //插入公钥到redis中
+    m_redis.insertRsaKey("publicKey", data);
+    //保存私钥到redis
+    ifs.close();
+    ifs.open("private.pem");
+    if (!ifs.is_open())
+    {
+        LOG_ERROR << "open private.pem failed\n";
+        return;
+    }
+    sstr.clear();
+    sstr<<ifs.rdbuf();
+    data=sstr.str();
+    m_redis.insertRsaKey("privateKey", data);
+    //关闭redis++
+    //释放内存
+    ifs.close();
+    delete crypt;
 
+    unlink("public.pem");
+    unlink("private.pem"); 
 }

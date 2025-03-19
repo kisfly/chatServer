@@ -5,12 +5,12 @@ using namespace std;
 #include<muduo/base/Logging.h>
 using namespace muduo;
 
-Redis::Redis()
+RedisHir::RedisHir()
     : _publish_context(nullptr), _subcribe_context(nullptr)
 {
 }
 
-Redis::~Redis()
+RedisHir::~RedisHir()
 {
     if (_publish_context != nullptr)
     {
@@ -23,7 +23,7 @@ Redis::~Redis()
     }
 }
 
-bool Redis::connect()
+bool RedisHir::connect()
 {
     // 负责publish发布消息的上下文连接
     _publish_context = redisConnect("127.0.0.1", 6379);
@@ -53,7 +53,7 @@ bool Redis::connect()
 }
 
 // 向redis指定的通道channel发布消息
-bool Redis::publish(int channel, string message)
+bool RedisHir::publish(int channel, string message)
 {
     redisReply *reply = (redisReply *)redisCommand(_publish_context, "PUBLISH %d %s", channel, message.c_str());
     if (nullptr == reply)
@@ -66,7 +66,7 @@ bool Redis::publish(int channel, string message)
 }
 
 // 向redis指定的通道subscribe订阅消息
-bool Redis::subscribe(int channel)
+bool RedisHir::subscribe(int channel)
 {
     // SUBSCRIBE命令本身会造成线程阻塞等待通道里面发生消息，这里只做订阅通道，不接收通道消息
     // 通道消息的接收专门在observer_channel_message函数中的独立线程中进行
@@ -92,7 +92,7 @@ bool Redis::subscribe(int channel)
 }
 
 // 向redis指定的通道unsubscribe取消订阅消息
-bool Redis::unsubscribe(int channel)
+bool RedisHir::unsubscribe(int channel)
 {
     if (REDIS_ERR == redisAppendCommand(this->_subcribe_context, "UNSUBSCRIBE %d", channel))
     {
@@ -113,7 +113,7 @@ bool Redis::unsubscribe(int channel)
 }
 
 // 在独立线程中接收订阅通道中的消息
-void Redis::observer_channel_message()
+void RedisHir::observer_channel_message()
 {
     redisReply *reply = nullptr;
     while (REDIS_OK == redisGetReply(this->_subcribe_context, (void **)&reply))
@@ -131,7 +131,7 @@ void Redis::observer_channel_message()
     LOG_INFO << ">>>>>>>>>>>>> observer_channel_message quit <<<<<<<<<<<<<" << "\n";
 }
 
-void Redis::init_notify_handler(function<void(int,string)> fn)
+void RedisHir::init_notify_handler(function<void(int,string)> fn)
 {
     this->_notify_message_handler = fn;
 }

@@ -54,6 +54,37 @@ User UserModel::query(int id)
     return User(); //返回空User
 }
 
+//获取数据库中所有用户数据
+vector<User> UserModel::getAllUser()
+{
+    //1.组装sql语句
+    char sql[1024] = "SELECT * FROM User";
+    //2.执行sql语句
+    //获取一个数据库连接
+    shared_ptr<MySQL> sp = ConnectionPool::getConnectionPool()->getConnection();
+    //执行查询语句
+    MYSQL_RES* result = sp->query(sql);
+    vector<User> userList;
+    if(result)
+    {
+        //查询到数据
+        MYSQL_ROW row;
+        //查询所有用户数据
+        while((row = mysql_fetch_row(result))!= nullptr)
+        {
+            User user;
+            user.setId(atoi(row[0]));
+            user.setName(row[1]);
+            user.setPassword(row[2]);
+            user.setState(row[3]);
+            userList.push_back(user);
+        }
+        //释放资源
+        mysql_free_result(result);        
+    }
+    return userList; //返回空User
+}
+
 bool UserModel::updateState(User& user)
 {
     //1.组装sql语句
