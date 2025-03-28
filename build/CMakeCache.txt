@@ -242,7 +242,16 @@ mycrypt_IS_TOP_LEVEL:STATIC=OFF
 mycrypt_SOURCE_DIR:STATIC=/home/fly/projects/chatServer/chatServer/crypto
 
 //Dependencies for the target
-mycrypto_lib_LIB_DEPENDS:STATIC=general;muduo_net;general;muduo_base;general;ssl;general;crypto;
+mycrypto_lib_LIB_DEPENDS:STATIC=general;ssl;general;crypto;
+
+//Value Computed by CMake
+mynetwork_BINARY_DIR:STATIC=/home/fly/projects/chatServer/chatServer/build/netWork
+
+//Value Computed by CMake
+mynetwork_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+mynetwork_SOURCE_DIR:STATIC=/home/fly/projects/chatServer/chatServer/netWork
 
 //Value Computed by CMake
 mysrc_BINARY_DIR:STATIC=/home/fly/projects/chatServer/chatServer/build/src/server
@@ -358,7 +367,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=6
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

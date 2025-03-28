@@ -10,20 +10,23 @@ set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
 #配置头文件的搜索路径
 include_directories(${PROJECT_SOURCE_DIR}/include)
-include_directories(${PROJECT_SOURCE_DIR}/include/crypto)
+include_directories(${PROJECT_SOURCE_DIR}/crypto)
+include_directories(${PROJECT_SOURCE_DIR}/netWork)
 include_directories(${PROJECT_SOURCE_DIR}/include/server)
 include_directories(${PROJECT_SOURCE_DIR}/include/server/db)
 include_directories(${PROJECT_SOURCE_DIR}/include/server/model)
 include_directories(${PROJECT_SOURCE_DIR}/include/server/redis)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
-
-
+include_directories(/home/fly/third/include)
+#指定要链接的动态库的路径
+link_directories(/home/fly/third/lib/log4cpp)
 
 # 静态库的名字
 set(MYCRYPTO_LIB mycrypto_lib)
-#指定动态库的路径
-#link_directories(/usr/local/ssl/lib64/)
+set(MYNET_LIB mynetwork_lib)
+
 
 #加载子目录
 add_subdirectory (src)
 add_subdirectory (crypto)
+add_subdirectory (netWork)

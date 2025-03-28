@@ -1,7 +1,6 @@
 #include "connectionPool.hpp"
 #include"db.hpp"
-#include<muduo/base/Logging.h>
-using namespace muduo;
+#include"Logger.h"
 
 // 线程安全的懒汉单例函数接口
 ConnectionPool* ConnectionPool::getConnectionPool()
@@ -16,7 +15,7 @@ bool ConnectionPool::loadConfigFile()
 	FILE *pf = fopen("../src/server/db/mysql.ini", "r");
 	if (pf == nullptr)
 	{
-		LOG_ERROR<<"mysql.ini file is not exist!"<<"\n";
+		LOG_ERROR("mysql.ini file is not exist!");
 		return false;
 	}
 
@@ -141,7 +140,7 @@ shared_ptr<MySQL> ConnectionPool::getConnection()
 		{
 			if (_connectionQue.empty())
 			{
-				LOG_ERROR<<"获取空闲连接超时了...获取连接失败!\n";
+				LOG_ERROR("获取空闲连接超时了...获取连接失败!");
 					return nullptr;
 			}
 		}

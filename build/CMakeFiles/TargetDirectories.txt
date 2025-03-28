@@ -11,3 +11,6 @@
 /home/fly/projects/chatServer/chatServer/build/crypto/CMakeFiles/mycrypto_lib.dir
 /home/fly/projects/chatServer/chatServer/build/crypto/CMakeFiles/edit_cache.dir
 /home/fly/projects/chatServer/chatServer/build/crypto/CMakeFiles/rebuild_cache.dir
+/home/fly/projects/chatServer/chatServer/build/netWork/CMakeFiles/mynetwork_lib.dir
+/home/fly/projects/chatServer/chatServer/build/netWork/CMakeFiles/edit_cache.dir
+/home/fly/projects/chatServer/chatServer/build/netWork/CMakeFiles/rebuild_cache.dir

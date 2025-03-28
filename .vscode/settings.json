@@ -67,6 +67,9 @@
         "cinttypes": "cpp",
         "typeindex": "cpp",
         "typeinfo": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "strstream": "cpp",
+        "unordered_set": "cpp",
+        "future": "cpp"
     }
 }

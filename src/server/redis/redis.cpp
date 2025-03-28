@@ -1,9 +1,7 @@
 #include "redis.hpp"
+#include"Logger.h"
 #include <iostream>
 using namespace std;
-
-#include<muduo/base/Logging.h>
-using namespace muduo;
 
 RedisHir::RedisHir()
     : _publish_context(nullptr), _subcribe_context(nullptr)
@@ -29,7 +27,7 @@ bool RedisHir::connect()
     _publish_context = redisConnect("127.0.0.1", 6379);
     if (nullptr == _publish_context)
     {
-        LOG_ERROR << "connect redis failed!" << "\n";
+        LOG_ERROR ("connect redis failed!");
         return false;
     }
 
@@ -37,7 +35,7 @@ bool RedisHir::connect()
     _subcribe_context = redisConnect("127.0.0.1", 6379);
     if (nullptr == _subcribe_context)
     {
-        LOG_ERROR << "connect redis failed!" << "\n";
+        LOG_ERROR ("connect redis failed!");
         return false;
     }
 
@@ -47,7 +45,7 @@ bool RedisHir::connect()
     });
     t.detach();
 
-    LOG_INFO << "connect redis-server success!" << "\n";
+    LOG_INFO("connect redis-server success!");
 
     return true;
 }
@@ -58,7 +56,7 @@ bool RedisHir::publish(int channel, string message)
     redisReply *reply = (redisReply *)redisCommand(_publish_context, "PUBLISH %d %s", channel, message.c_str());
     if (nullptr == reply)
     {
-        LOG_ERROR << "publish command failed!" << "\n";
+        LOG_ERROR("publish command failed!");
         return false;
     }
     freeReplyObject(reply);
@@ -73,7 +71,7 @@ bool RedisHir::subscribe(int channel)
     // 只负责发送命令，不阻塞接收redis server响应消息，否则和notifyMsg线程抢占响应资源
     if (REDIS_ERR == redisAppendCommand(this->_subcribe_context, "SUBSCRIBE %d", channel))
     {
-        LOG_ERROR << "subscribe command failed!" << "\n";
+        LOG_ERROR("subscribe command failed!");
         return false;
     }
     // redisBufferWrite可以循环发送缓冲区，直到缓冲区数据发送完毕（done被置为1）
@@ -82,7 +80,7 @@ bool RedisHir::subscribe(int channel)
     {
         if (REDIS_ERR == redisBufferWrite(this->_subcribe_context, &done))
         {
-            LOG_ERROR << "subscribe command failed!" << "\n";
+            LOG_ERROR("subscribe command failed!");
             return false;
         }
     }
@@ -96,7 +94,7 @@ bool RedisHir::unsubscribe(int channel)
 {
     if (REDIS_ERR == redisAppendCommand(this->_subcribe_context, "UNSUBSCRIBE %d", channel))
     {
-        LOG_ERROR << "unsubscribe command failed!" << "\n";
+        LOG_ERROR("unsubscribe command failed!");
         return false;
     }
     // redisBufferWrite可以循环发送缓冲区，直到缓冲区数据发送完毕（done被置为1）
@@ -105,7 +103,7 @@ bool RedisHir::unsubscribe(int channel)
     {
         if (REDIS_ERR == redisBufferWrite(this->_subcribe_context, &done))
         {
-            LOG_ERROR << "unsubscribe command failed!" << "\n";
+            LOG_ERROR("unsubscribe command failed!");
             return false;
         }
     }
@@ -128,7 +126,7 @@ void RedisHir::observer_channel_message()
         freeReplyObject(reply);
     }
 
-    LOG_INFO << ">>>>>>>>>>>>> observer_channel_message quit <<<<<<<<<<<<<" << "\n";
+    LOG_INFO (">>>>>>>>>>>>> observer_channel_message quit <<<<<<<<<<<<<");
 }
 
 void RedisHir::init_notify_handler(function<void(int,string)> fn)

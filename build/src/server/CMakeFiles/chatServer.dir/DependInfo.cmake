@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/fly/projects/chatServer/chatServer/src/server/Logger.cpp" "src/server/CMakeFiles/chatServer.dir/Logger.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/Logger.cpp.o.d"
   "/home/fly/projects/chatServer/chatServer/src/server/chatserver.cpp" "src/server/CMakeFiles/chatServer.dir/chatserver.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/chatserver.cpp.o.d"
   "/home/fly/projects/chatServer/chatServer/src/server/chatservice.cpp" "src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o.d"
   "/home/fly/projects/chatServer/chatServer/src/server/db/connectionPool.cpp" "src/server/CMakeFiles/chatServer.dir/db/connectionPool.cpp.o" "gcc" "src/server/CMakeFiles/chatServer.dir/db/connectionPool.cpp.o.d"

@@ -245,8 +245,8 @@ src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o: \
  /home/fly/projects/chatServer/chatServer/include/server/model/groupuser.hpp \
  /home/fly/projects/chatServer/chatServer/include/server/model/offlinemessagemodel.hpp \
  /usr/include/c++/11/iostream \
- /home/fly/projects/chatServer/chatServer/include/crypto/RsaCrypto.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Hash.h \
+ /home/fly/projects/chatServer/chatServer/crypto/RsaCrypto.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Hash.h \
  /usr/include/openssl/evp.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
@@ -271,8 +271,8 @@ src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o: \
  /usr/include/openssl/asn1.h /usr/include/openssl/asn1err.h \
  /usr/include/openssl/objectserr.h /usr/include/openssl/md5.h \
  /usr/include/openssl/sha.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/AesCrypto.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Base64.h \
+ /home/fly/projects/chatServer/chatServer/crypto/AesCrypto.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Base64.h \
  /home/fly/projects/chatServer/chatServer/include/server/redis/chatRedis.hpp \
  /home/fly/projects/chatServer/chatServer/include/server/model/UserModel.hpp \
  /usr/local/include/sw/redis++/redis++.h \
@@ -309,18 +309,11 @@ src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o: \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
  /usr/local/include/sw/redis++/queued_redis.hpp \
- /usr/include/muduo/net/TcpServer.h /usr/include/muduo/base/Atomic.h \
- /usr/include/muduo/base/noncopyable.h /usr/include/muduo/base/Types.h \
- /usr/include/muduo/net/TcpConnection.h \
- /usr/include/muduo/base/StringPiece.h /usr/include/muduo/net/Callbacks.h \
- /usr/include/muduo/base/Timestamp.h /usr/include/muduo/base/copyable.h \
- /usr/include/boost/operators.hpp /usr/include/boost/config.hpp \
- /usr/include/boost/config/user.hpp \
- /usr/include/boost/config/detail/select_compiler_config.hpp \
- /usr/include/boost/config/compiler/gcc.hpp \
- /usr/include/boost/config/detail/select_stdlib_config.hpp \
- /usr/include/c++/11/version \
- /usr/include/boost/config/stdlib/libstdcpp3.hpp /usr/include/unistd.h \
+ /home/fly/projects/chatServer/chatServer/netWork/TcpServer.h \
+ /home/fly/projects/chatServer/chatServer/netWork/EventLoop.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Epoll.h \
+ /usr/include/x86_64-linux-gnu/sys/epoll.h \
+ /usr/include/x86_64-linux-gnu/bits/epoll.h /usr/include/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h \
@@ -328,16 +321,10 @@ src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
  /usr/include/linux/close_range.h \
- /usr/include/boost/config/detail/select_platform_config.hpp \
- /usr/include/boost/config/platform/linux.hpp \
- /usr/include/boost/config/detail/posix_features.hpp \
- /usr/include/boost/config/detail/suffix.hpp \
- /usr/include/boost/config/helper_macros.hpp \
- /usr/include/boost/detail/workaround.hpp \
- /usr/include/boost/config/workaround.hpp \
- /usr/include/boost/core/addressof.hpp /usr/include/muduo/net/Buffer.h \
- /usr/include/muduo/net/Endian.h /usr/include/muduo/net/InetAddress.h \
- /usr/include/netinet/in.h /usr/include/x86_64-linux-gnu/sys/socket.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Channel.h \
+ /home/fly/projects/chatServer/chatServer/netWork/InetAddress.h \
+ /usr/include/arpa/inet.h /usr/include/netinet/in.h \
+ /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
  /usr/include/x86_64-linux-gnu/bits/socket.h \
  /usr/include/x86_64-linux-gnu/bits/socket_type.h \
@@ -353,39 +340,54 @@ src/server/CMakeFiles/chatServer.dir/chatservice.cpp.o: \
  /usr/include/x86_64-linux-gnu/asm/sockios.h \
  /usr/include/asm-generic/sockios.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
- /usr/include/x86_64-linux-gnu/bits/in.h /usr/include/boost/any.hpp \
- /usr/include/boost/type_index.hpp \
- /usr/include/boost/type_index/stl_type_index.hpp \
- /usr/include/boost/type_index/type_index_facade.hpp \
- /usr/include/boost/container_hash/hash_fwd.hpp \
- /usr/include/boost/static_assert.hpp \
- /usr/include/boost/throw_exception.hpp \
- /usr/include/boost/assert/source_location.hpp \
- /usr/include/boost/current_function.hpp /usr/include/boost/cstdint.hpp \
- /usr/include/boost/exception/exception.hpp \
- /usr/include/boost/core/demangle.hpp /usr/include/c++/11/cxxabi.h \
- /usr/include/x86_64-linux-gnu/c++/11/bits/cxxabi_tweaks.h \
- /usr/include/boost/type_traits/conditional.hpp \
- /usr/include/boost/type_traits/is_const.hpp \
- /usr/include/boost/type_traits/integral_constant.hpp \
- /usr/include/boost/type_traits/is_reference.hpp \
- /usr/include/boost/type_traits/is_lvalue_reference.hpp \
- /usr/include/boost/type_traits/is_rvalue_reference.hpp \
- /usr/include/boost/type_traits/is_volatile.hpp \
- /usr/include/boost/type_traits/remove_cv.hpp \
- /usr/include/boost/type_traits/remove_reference.hpp \
- /usr/include/boost/type_traits/decay.hpp \
- /usr/include/boost/type_traits/is_array.hpp \
- /usr/include/boost/type_traits/is_function.hpp \
- /usr/include/boost/type_traits/detail/config.hpp \
- /usr/include/boost/version.hpp \
- /usr/include/boost/type_traits/detail/is_function_cxx_11.hpp \
- /usr/include/boost/type_traits/remove_bounds.hpp \
- /usr/include/boost/type_traits/remove_extent.hpp \
- /usr/include/boost/type_traits/add_pointer.hpp \
- /usr/include/boost/type_traits/add_reference.hpp \
- /usr/include/boost/utility/enable_if.hpp \
- /usr/include/boost/core/enable_if.hpp \
- /usr/include/boost/type_traits/is_same.hpp \
+ /usr/include/x86_64-linux-gnu/bits/in.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Socket.h \
+ /usr/include/netinet/tcp.h /usr/include/c++/11/queue \
+ /usr/include/c++/11/bits/stl_queue.h /usr/include/c++/11/atomic \
+ /usr/include/x86_64-linux-gnu/sys/eventfd.h \
+ /usr/include/x86_64-linux-gnu/bits/eventfd.h \
+ /usr/include/x86_64-linux-gnu/sys/syscall.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd.h \
+ /usr/include/x86_64-linux-gnu/asm/unistd_64.h \
+ /usr/include/x86_64-linux-gnu/bits/syscall.h \
+ /usr/include/x86_64-linux-gnu/sys/timerfd.h \
+ /usr/include/x86_64-linux-gnu/bits/timerfd.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Connection.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Buffer.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Timestamp.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Acceptor.h \
+ /home/fly/projects/chatServer/chatServer/netWork/ThreadPool.h \
+ /usr/include/c++/11/future /usr/include/c++/11/bits/atomic_futex.h \
+ /home/fly/projects/chatServer/chatServer/netWork/EventLoop.h \
+ /home/fly/projects/chatServer/chatServer/netWork/Connection.h \
+ /home/fly/projects/chatServer/chatServer/netWork/ThreadPool.h \
  /home/fly/projects/chatServer/chatServer/include/public.hpp \
- /usr/include/muduo/base/Logging.h /usr/include/muduo/base/LogStream.h
+ /home/fly/projects/chatServer/chatServer/include/Logger.h \
+ /home/fly/third/include/log4cpp/Category.hh \
+ /home/fly/third/include/log4cpp/Portability.hh \
+ /home/fly/third/include/log4cpp/config.h \
+ /home/fly/third/include/log4cpp/Export.hh \
+ /home/fly/third/include/log4cpp/Appender.hh /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /usr/include/x86_64-linux-gnu/sys/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
+ /usr/include/x86_64-linux-gnu/bits/statx.h /usr/include/linux/stat.h \
+ /usr/include/linux/types.h /usr/include/x86_64-linux-gnu/asm/types.h \
+ /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
+ /usr/include/x86_64-linux-gnu/bits/statx-generic.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
+ /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
+ /usr/include/linux/falloc.h /home/fly/third/include/log4cpp/Priority.hh \
+ /home/fly/third/include/log4cpp/Layout.hh \
+ /home/fly/third/include/log4cpp/LoggingEvent.hh \
+ /home/fly/third/include/log4cpp/TimeStamp.hh \
+ /home/fly/third/include/log4cpp/threading/Threading.hh \
+ /home/fly/third/include/log4cpp/threading/PThreads.hh \
+ /home/fly/third/include/log4cpp/CategoryStream.hh \
+ /home/fly/third/include/log4cpp/Manipulator.hh \
+ /home/fly/third/include/log4cpp/convenience.h \
+ /usr/include/c++/11/cstdarg

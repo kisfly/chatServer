@@ -275,29 +275,40 @@ src/server/CMakeFiles/chatServer.dir/redis/chatRedis.cpp.o: \
  /usr/include/c++/11/unordered_set \
  /usr/include/c++/11/bits/unordered_set.h \
  /usr/local/include/sw/redis++/queued_redis.hpp \
- /usr/include/muduo/base/Logging.h /usr/include/muduo/base/LogStream.h \
- /usr/include/muduo/base/noncopyable.h \
- /usr/include/muduo/base/StringPiece.h /usr/include/muduo/base/Types.h \
- /usr/include/muduo/base/Timestamp.h /usr/include/muduo/base/copyable.h \
- /usr/include/boost/operators.hpp /usr/include/boost/config.hpp \
- /usr/include/boost/config/user.hpp \
- /usr/include/boost/config/detail/select_compiler_config.hpp \
- /usr/include/boost/config/compiler/gcc.hpp \
- /usr/include/boost/config/detail/select_stdlib_config.hpp \
- /usr/include/c++/11/version \
- /usr/include/boost/config/stdlib/libstdcpp3.hpp /usr/include/unistd.h \
- /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
- /usr/include/x86_64-linux-gnu/bits/environments.h \
- /usr/include/x86_64-linux-gnu/bits/confname.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
- /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /usr/include/linux/close_range.h \
- /usr/include/boost/config/detail/select_platform_config.hpp \
- /usr/include/boost/config/platform/linux.hpp \
- /usr/include/boost/config/detail/posix_features.hpp \
- /usr/include/boost/config/detail/suffix.hpp \
- /usr/include/boost/config/helper_macros.hpp \
- /usr/include/boost/detail/workaround.hpp \
- /usr/include/boost/config/workaround.hpp \
- /usr/include/boost/core/addressof.hpp
+ /home/fly/projects/chatServer/chatServer/include/Logger.h \
+ /home/fly/third/include/log4cpp/Category.hh \
+ /home/fly/third/include/log4cpp/Portability.hh \
+ /home/fly/third/include/log4cpp/config.h \
+ /home/fly/third/include/log4cpp/Export.hh \
+ /home/fly/third/include/log4cpp/Appender.hh /usr/include/c++/11/set \
+ /usr/include/c++/11/bits/stl_set.h \
+ /usr/include/c++/11/bits/stl_multiset.h \
+ /usr/include/x86_64-linux-gnu/sys/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/stat.h \
+ /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
+ /usr/include/x86_64-linux-gnu/bits/statx.h /usr/include/linux/stat.h \
+ /usr/include/linux/types.h /usr/include/x86_64-linux-gnu/asm/types.h \
+ /usr/include/asm-generic/types.h /usr/include/asm-generic/int-ll64.h \
+ /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
+ /usr/include/linux/stddef.h \
+ /usr/include/x86_64-linux-gnu/asm/posix_types.h \
+ /usr/include/x86_64-linux-gnu/asm/posix_types_64.h \
+ /usr/include/asm-generic/posix_types.h \
+ /usr/include/x86_64-linux-gnu/bits/statx-generic.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
+ /usr/include/fcntl.h /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+ /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
+ /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /home/fly/third/include/log4cpp/Priority.hh \
+ /home/fly/third/include/log4cpp/Layout.hh \
+ /home/fly/third/include/log4cpp/LoggingEvent.hh \
+ /home/fly/third/include/log4cpp/TimeStamp.hh \
+ /home/fly/third/include/log4cpp/threading/Threading.hh \
+ /home/fly/third/include/log4cpp/threading/PThreads.hh \
+ /home/fly/third/include/log4cpp/CategoryStream.hh \
+ /home/fly/third/include/log4cpp/Manipulator.hh \
+ /usr/include/c++/11/iostream \
+ /home/fly/third/include/log4cpp/convenience.h \
+ /usr/include/c++/11/cstdarg

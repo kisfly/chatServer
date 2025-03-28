@@ -8,7 +8,7 @@ crypto/CMakeFiles/mycrypto_lib.dir/RsaCrypto.cpp.o: \
  /usr/include/x86_64-linux-gnu/bits/long-double.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/RsaCrypto.h \
+ /home/fly/projects/chatServer/chatServer/crypto/RsaCrypto.h \
  /usr/include/c++/11/string \
  /usr/include/x86_64-linux-gnu/c++/11/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/os_defines.h \
@@ -139,7 +139,7 @@ crypto/CMakeFiles/mycrypto_lib.dir/RsaCrypto.cpp.o: \
  /usr/include/c++/11/bits/invoke.h \
  /usr/include/c++/11/bits/stl_multimap.h \
  /usr/include/c++/11/bits/erase_if.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Hash.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Hash.h \
  /usr/include/openssl/evp.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
@@ -164,7 +164,7 @@ crypto/CMakeFiles/mycrypto_lib.dir/RsaCrypto.cpp.o: \
  /usr/include/openssl/asn1.h /usr/include/openssl/asn1err.h \
  /usr/include/openssl/objectserr.h /usr/include/openssl/md5.h \
  /usr/include/openssl/sha.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Base64.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Base64.h \
  /usr/include/openssl/rsa.h /usr/include/openssl/rsaerr.h \
  /usr/include/openssl/pem.h /usr/include/openssl/x509.h \
  /usr/include/openssl/buffer.h /usr/include/openssl/buffererr.h \

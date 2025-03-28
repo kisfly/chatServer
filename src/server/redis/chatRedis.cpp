@@ -1,6 +1,5 @@
 #include"chatRedis.hpp"
-#include<muduo/base/Logging.h>
-using namespace muduo;
+#include"Logger.h"
 //初始化连接redis++
 bool myRedis::connectRedis()
 {
@@ -17,10 +16,10 @@ bool myRedis::connectRedis()
 
         // 使用 Redis 类直接管理连接池 
         m_redis = new Redis(opts, pool_opts);
-        LOG_INFO<<"redis++ server connected successfully\n";
+        LOG_INFO("redis++ server connected successfully");
         return true;
     } catch (const Error &e) {
-        LOG_ERROR<<"redis++ server connection failed\n";
+        LOG_ERROR("redis++ server connection failed");
         // 记录错误日志
         return false;
     }
@@ -52,7 +51,7 @@ string myRedis::getRsaKey(const string& rsakeyType)
         //LOG_INFO<<"rsa key "<<rsakeyType<<" not found\n";
         return value1.value();
     }
-    LOG_ERROR<<"rsa key "<<rsakeyType<<" not found\n";
+    LOG_ERROR("rsa key not found");
     return string();
 }
 
@@ -88,7 +87,7 @@ User myRedis::getUserById(int id)
         return user;
     } catch (const Error &e) {
         // 处理Redis异常
-        LOG_INFO << "Redis error: " << e.what() << "\n";
+        LOG_INFO ("Redis error!" );
         return _userModel.query(id); // 降级到直接查DB
     }
 }

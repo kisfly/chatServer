@@ -12,6 +12,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "CMakeFiles/3.29.5/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.29.5/CMakeSystem.cmake"
   "/home/fly/projects/chatServer/chatServer/crypto/CMakeLists.txt"
+  "/home/fly/projects/chatServer/chatServer/netWork/CMakeLists.txt"
   "/home/fly/projects/chatServer/chatServer/src/CMakeLists.txt"
   "/home/fly/projects/chatServer/chatServer/src/client/CMakeLists.txt"
   "/home/fly/projects/chatServer/chatServer/src/server/CMakeLists.txt"
@@ -48,6 +49,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
   "src/server/CMakeFiles/CMakeDirectoryInformation.cmake"
   "src/client/CMakeFiles/CMakeDirectoryInformation.cmake"
   "crypto/CMakeFiles/CMakeDirectoryInformation.cmake"
+  "netWork/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
@@ -55,4 +57,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "src/server/CMakeFiles/chatServer.dir/DependInfo.cmake"
   "src/client/CMakeFiles/chatClient.dir/DependInfo.cmake"
   "crypto/CMakeFiles/mycrypto_lib.dir/DependInfo.cmake"
+  "netWork/CMakeFiles/mynetwork_lib.dir/DependInfo.cmake"
   )

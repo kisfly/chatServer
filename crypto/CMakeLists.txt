@@ -6,4 +6,4 @@ aux_source_directory(./ SRC)
 set(LIBRARY_OUTPUT_PATH ${LIB_PATH})
 #将源文件制作为静态库文件
 add_library(${MYCRYPTO_LIB} STATIC ${SRC})
-target_link_libraries(${MYCRYPTO_LIB} muduo_net muduo_base ssl crypto)
+target_link_libraries(${MYCRYPTO_LIB} ssl crypto)

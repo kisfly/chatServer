@@ -9,10 +9,7 @@
 #include <openssl/aes.h>
 #include<openssl/err.h>
 #include <openssl/rand.h>
-#include<muduo/base/Logging.h>
 
-
-using namespace muduo;
 AesCrypto::AesCrypto(Algorithm algorithm, string key)
 {
     switch(algorithm)
@@ -64,16 +61,10 @@ string AesCrypto::decrypt(string text)
 string AesCrypto::aesCrypto(string text, CryptoType type)
 {    
     if(type==ENCRYPTO)
-    {
-        LOG_INFO<<"要加密的字符串："<<text<<"\n";
+    {        
         size_t ciphertext_len = text.size(); // 从输入参数或数据源获取
         //int block_size = EVP_CIPHER_block_size(EVP_aes_256_cbc()); // 获取块大小（通常为16字节）
-        size_t remainder = ciphertext_len % AES_BLOCK_SIZE;
-    
-        // 输出日志：密文长度及余数
-        LOG_INFO << "[DEBUG] 加密前密文长度: " << ciphertext_len<<"\n" 
-              << "，余数: " << remainder 
-              << "，块大小: " << AES_BLOCK_SIZE << "\n";        
+        size_t remainder = ciphertext_len % AES_BLOCK_SIZE;     
     }
     else
     {
@@ -104,12 +95,6 @@ string AesCrypto::aesCrypto(string text, CryptoType type)
     size_t ciphertext_len = text.size(); // 从输入参数或数据源获取
     //int block_size = EVP_CIPHER_block_size(EVP_aes_256_cbc()); // 获取块大小（通常为16字节）
     size_t remainder = ciphertext_len % AES_BLOCK_SIZE;
-
-    // 输出日志：密文长度及余数
-    LOG_INFO << "[DEBUG] 解密前密文长度: " << ciphertext_len 
-          << "，余数: " << remainder 
-          << "，块大小: " << AES_BLOCK_SIZE << "\n";
-
     }
     
     
@@ -125,8 +110,6 @@ string AesCrypto::aesCrypto(string text, CryptoType type)
         unsigned long err = ERR_get_error();
         const char* lib = ERR_lib_error_string(err);
         const char* reason = ERR_reason_error_string(err);
-        LOG_ERROR << "解密失败: " << lib << "::" << reason;
-        LOG_ERROR<<"EVP_CipherFinal_ex ret= " << ret<<"\n";
         EVP_CIPHER_CTX_free(ctx);
         return ""; // 返回空或抛出异常
     }
@@ -138,27 +121,16 @@ string AesCrypto::aesCrypto(string text, CryptoType type)
         size_t ciphertext_len = outtext.size(); // 从输入参数或数据源获取
         //int block_size = EVP_CIPHER_block_size(EVP_aes_256_cbc()); // 获取块大小（通常为16字节）
         size_t remainder = ciphertext_len % AES_BLOCK_SIZE;
-    
-        // 输出日志：密文长度及余数
-        LOG_INFO << "[DEBUG] 加密后密文长度: " << ciphertext_len<<"\n" 
-                <<"[DEBUG] 加密后密文长度2: "<<totalLen<<"\n"
-              << "，余数: " << remainder 
-              << "，块大小: " << AES_BLOCK_SIZE << "\n";
+
         Base64 base;
         outtext=base.encode(outtext); 
     }
     if(type==DECRYPTO)
     {
-        LOG_INFO<<"解密之后的字符串："<<outtext<<"\n";
         // 假设 ciphertext 是密文数据，ciphertext_len 是密文长度
     size_t ciphertext_len = outtext.size(); // 从输入参数或数据源获取
     //int block_size = EVP_CIPHER_block_size(EVP_aes_256_cbc()); // 获取块大小（通常为16字节）
     size_t remainder = ciphertext_len % AES_BLOCK_SIZE;
-
-    // 输出日志：密文长度及余数
-    LOG_INFO << "[DEBUG] 解密后密文长度: " << ciphertext_len 
-          << "，余数: " << remainder 
-          << "，块大小: " << AES_BLOCK_SIZE << "\n";
 
     }
     delete[]out;
@@ -171,9 +143,6 @@ bool AesCrypto::generateAESKey(std::string& key) {
     
     if (RAND_bytes(key_buf, KEY_LENGTH) != 1) {  // 关键安全接口
         unsigned long err = ERR_get_error();
-        LOG_ERROR << "密钥生成失败: " 
-                  << ERR_lib_error_string(err) << "::"
-                  << ERR_reason_error_string(err);
         return false;
     }
     

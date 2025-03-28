@@ -7,7 +7,6 @@
 #include<mutex>
 #include"json.hpp"
 #include"redis.hpp"
-//#include"UserModel.hpp"
 #include"friendmodel.hpp"
 #include"groupmodel.hpp"
 #include"offlinemessagemodel.hpp"
@@ -15,16 +14,20 @@
 #include"AesCrypto.h"
 #include"Base64.h"
 #include"chatRedis.hpp"
-#include<muduo/net/TcpServer.h>
-using namespace muduo;
-using namespace muduo::net;
+#include "TcpServer.h"
+#include "EventLoop.h"
+#include "Connection.h"
+#include "ThreadPool.h"
+
+
 using namespace std;
-
-
+//占位符的命令空间
+using namespace placeholders;
 using json=nlohmann::json;
+using namespace mynetwork;
 
 //处理消息的事件回调方法类型
-using MsgHandler=function<void(const TcpConnectionPtr&, json&, Timestamp)>;
+using MsgHandler=function<void(const spConnection&, json&)>;
 //聊天服务器业务类
 class chatService
 {
@@ -32,33 +35,33 @@ public:
     //获取单例对象的接口
     static chatService* getInstance();
     //处理登录业务
-    void login(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void login(const spConnection& conn, json& js);
     //处理注册业务
-    void reg(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void reg(const spConnection& conn, json& js);
     //获取消息对应的处理器
     MsgHandler getHandler(int msgid);
     //处理客户端异常退出
-    void clientCloseException(const TcpConnectionPtr& conn);
+    void clientCloseException(const spConnection& conn);
     //一对一聊天业务
-    void oneChat(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void oneChat(const spConnection& conn, json& js);
     //服务器异常，业务重置方法
     void reset();
     //添加好友
-    void addFriend(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void addFriend(const spConnection& conn, json& js);
     //创建一个群聊
-    void createGroup(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void createGroup(const spConnection& conn, json& js);
     //加入群聊
-    void addGroup(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void addGroup(const spConnection& conn, json& js);
     //进行群聊天
-    void groupChat(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void groupChat(const spConnection& conn, json& js);
     //处理登录退出业务
-    void loginout(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void loginout(const spConnection& conn, json& js);
     // 从redis消息队列中获取订阅的消息
     void handleRedisSubscribeMessage(int userid, string msg);
     //处理客户端发送过来的密钥
-    void handleKey(const TcpConnectionPtr& conn, json& js, Timestamp time);
+    void handleKey(const spConnection& conn, json& js);
     //返回对称加密的对象
-    AesCrypto* getAesCrypto(const TcpConnectionPtr& conn);
+    AesCrypto* getAesCrypto(const spConnection& conn);
     //使用对称加密的密钥加密数据,并返回加密后的数据
     string aesEncrypt(string data,AesCrypto* cipher);
     //对数据使用对称加密的密钥解密
@@ -82,9 +85,9 @@ private:
     GroupModel _groupModel;
 
     //存储在线用户的通信连接
-    unordered_map<int, TcpConnectionPtr> _userConnMap;
+    unordered_map<int, spConnection> _userConnMap;
     //存储每一个客户端连接的密钥
-    unordered_map<TcpConnectionPtr,AesCrypto*> _connKeyMap;
+    unordered_map<spConnection,AesCrypto*> _connKeyMap;
 
     //针对在线用户的通信连接的访问是一个多线程问题，但是STL是线程不安全的，所以需要使用互斥锁
     mutex _connMutex;//保证_userConnMap在多线程中安全

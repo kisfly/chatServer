@@ -155,6 +155,19 @@ mycrypto_lib/fast:
 	$(MAKE) $(MAKESILENT) -f crypto/CMakeFiles/mycrypto_lib.dir/build.make crypto/CMakeFiles/mycrypto_lib.dir/build
 .PHONY : mycrypto_lib/fast
 
+#=============================================================================
+# Target rules for targets named mynetwork_lib
+
+# Build rule for target.
+mynetwork_lib: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mynetwork_lib
+.PHONY : mynetwork_lib
+
+# fast build rule for target.
+mynetwork_lib/fast:
+	$(MAKE) $(MAKESILENT) -f netWork/CMakeFiles/mynetwork_lib.dir/build.make netWork/CMakeFiles/mynetwork_lib.dir/build
+.PHONY : mynetwork_lib/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -166,6 +179,7 @@ help:
 	@echo "... chatClient"
 	@echo "... chatServer"
 	@echo "... mycrypto_lib"
+	@echo "... mynetwork_lib"
 .PHONY : help
 
 

@@ -267,8 +267,8 @@ src/client/CMakeFiles/chatClient.dir/main.cpp.o: \
  /home/fly/projects/chatServer/chatServer/include/server/model/user.hpp \
  /home/fly/projects/chatServer/chatServer/include/server/model/user.hpp \
  /home/fly/projects/chatServer/chatServer/include/public.hpp \
- /home/fly/projects/chatServer/chatServer/include/crypto/RsaCrypto.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Hash.h \
+ /home/fly/projects/chatServer/chatServer/crypto/RsaCrypto.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Hash.h \
  /usr/include/openssl/evp.h /usr/include/openssl/macros.h \
  /usr/include/x86_64-linux-gnu/openssl/opensslconf.h \
  /usr/include/x86_64-linux-gnu/openssl/configuration.h \
@@ -293,7 +293,7 @@ src/client/CMakeFiles/chatClient.dir/main.cpp.o: \
  /usr/include/openssl/asn1.h /usr/include/openssl/asn1err.h \
  /usr/include/openssl/objectserr.h /usr/include/openssl/md5.h \
  /usr/include/openssl/sha.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/AesCrypto.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Hash.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Base64.h \
+ /home/fly/projects/chatServer/chatServer/crypto/AesCrypto.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Hash.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Base64.h \
  /usr/include/openssl/rand.h /usr/include/openssl/randerr.h

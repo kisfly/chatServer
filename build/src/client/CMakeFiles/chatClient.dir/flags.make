@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/include/crypto -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty
+CXX_INCLUDES = -I/home/fly/projects/chatServer/chatServer/include -I/home/fly/projects/chatServer/chatServer/crypto -I/home/fly/projects/chatServer/chatServer/netWork -I/home/fly/projects/chatServer/chatServer/include/server -I/home/fly/projects/chatServer/chatServer/include/server/db -I/home/fly/projects/chatServer/chatServer/include/server/model -I/home/fly/projects/chatServer/chatServer/include/server/redis -I/home/fly/projects/chatServer/chatServer/thirdparty -I/home/fly/third/include
 
 CXX_FLAGS = -g
 

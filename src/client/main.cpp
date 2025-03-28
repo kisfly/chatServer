@@ -64,6 +64,8 @@ void handleServerPubkey(json &js,int clientfd);
 string aesEncrypt(string data);
 //对数据使用对称加密的密钥解密
 string aesDecrypt(string data);
+//发送数据
+int sendbuf(int clientfd,string data);
 
 //main主线程用作发送线程，子线程用作接收线程
 int main(int argc, char *argv[])
@@ -145,7 +147,8 @@ int main(int argc, char *argv[])
             cout<<"==========================================="<<endl;
             //加密
             string aesData=aesEncrypt(buf);
-            int len=send(clientfd, aesData.c_str(), aesData.size(), 0);
+            int len=sendbuf(clientfd,aesData);
+            //int len=send(clientfd, aesData.c_str(), aesData.size(), 0);
             if(len==-1)
             {
                 cerr<<"send login message error: "<<aesData<<endl;
@@ -184,7 +187,7 @@ int main(int argc, char *argv[])
             //将json转换成字符串并发送
             string buf = js.dump();
             buf=aesEncrypt(buf);
-            int len=send(clientfd, buf.c_str(), strlen(buf.c_str()), 0);
+            int len=sendbuf(clientfd,buf);
             if(len==-1)
             {
                 cerr<<"send register message error: "<<buf<<endl;
@@ -244,7 +247,7 @@ void readTaskHandler(int clientfd)
     {
         char buffer[1024*10]={0};
         int len=recv(clientfd, buffer, sizeof(buffer)-1, 0);
-        cout<<"接收的数据长度strlen(buffer)："<<strlen(buffer)<<endl;
+       // cout<<"接收的数据长度strlen(buffer)："<<strlen(buffer)<<endl;
         cout<<"接收的数据长度len："<<strlen(buffer)<<endl;
         if(len==-1) 
         {
@@ -260,8 +263,15 @@ void readTaskHandler(int clientfd)
             close(clientfd);
             exit(0);
         }
+        string str11;
+        str11.append(buffer,len);
+
+        int len11;
+        memcpy(&len11,str11.data(),4);             // 从buf_中获取报文头部。
+
+        string str=str11.substr(4,len11);                        // 从buf_中获取一个报文。
         cout<<"解析json数据"<<endl;
-        string str=buffer;     
+             
         cout<<"接收的数据长度str.size()："<<str.size()<<endl; 
         if(m_aescry)
         {      
@@ -442,7 +452,8 @@ void chat(int clientfd,string str)
     js["time"]=getCurrentTime();
     string buf = js.dump();
     buf=aesEncrypt(buf);
-    int len=send(clientfd, buf.c_str(), buf.size(), 0);
+    int len=sendbuf(clientfd,buf);
+    //int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send chat message error: "<<buf<<endl;
@@ -457,7 +468,8 @@ void addfriend(int clientfd,string str)
     js["friendid"] = friendid;
     string buf = js.dump();
     buf=aesEncrypt(buf);
-    int len=send(clientfd, buf.c_str(), buf.size(), 0);
+    int len=sendbuf(clientfd,buf);
+    //int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send add friend message error: "<<buf<<endl;
@@ -480,7 +492,8 @@ void creategroup(int clientfd,string str)
     js["groupdesc"] = groupDesc;
     string buf = js.dump();
     buf=aesEncrypt(buf);
-    int len=send(clientfd, buf.c_str(), buf.size(), 0);
+    int len=sendbuf(clientfd,buf);
+    //int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send create group message error: "<<buf<<endl;
@@ -496,7 +509,8 @@ void addgroup(int clientfd,string str)
     js["groupid"] = groupId;
     string buf = js.dump();
     buf=aesEncrypt(buf);
-    int len=send(clientfd, buf.c_str(), buf.size(), 0);
+    int len=sendbuf(clientfd,buf);
+    //int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send add group message error: "<<buf<<endl;
@@ -520,7 +534,8 @@ void groupchat(int clientfd,string str)
     js["time"]=getCurrentTime();
     string buf = js.dump();
     buf=aesEncrypt(buf);
-    int len=send(clientfd, buf.c_str(), buf.size(), 0);
+    int len=sendbuf(clientfd,buf);
+    //int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send group chat message error: "<<buf<<endl;
@@ -534,7 +549,8 @@ void loginout(int clientfd,string str)
     js["id"] = g_currentUser.getId();
     string buf = js.dump();
     buf=aesEncrypt(buf);
-    int len=send(clientfd, buf.c_str(), buf.size(), 0);
+    int len=sendbuf(clientfd,buf);
+    //int len=send(clientfd, buf.c_str(), buf.size(), 0);
     if(len==-1)
     {
         cerr<<"send loginout message error: "<<buf<<endl;
@@ -690,7 +706,8 @@ void handleServerPubkey(json &js,int clientfd)
         string baseMd1 = base.encode(md1);
         js1["aeshash"]=baseMd1;
         string buf = js1.dump();
-        int len=send(clientfd, buf.c_str(), buf.size(), 0);
+        int len=sendbuf(clientfd,buf);
+        //int len=send(clientfd, buf.c_str(), buf.size(), 0);
         if(len==-1)
         {
             cerr<<"send aes key message error: "<<buf<<endl;
@@ -713,5 +730,17 @@ string aesDecrypt(string data)
 {
     string str1=m_aescry->decrypt(data);
     return str1;
+}
+
+//发送数据
+int sendbuf(int clientfd,string data)
+{
+    string buf;
+    int size=data.size();
+    buf.append((char*)&size,4);           // 处理报文长度（头部）。
+    buf.append(data);                    // 处理报文内容。
+    cout<<"要发送数据的长度："<<buf.size()<<endl;
+    int len=send(clientfd, buf.c_str(), buf.size(), 0);
+    return len;
 }
 

@@ -12,7 +12,7 @@ crypto/CMakeFiles/mycrypto_lib.dir/Hash.cpp.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/11/bits/cpu_defines.h \
  /usr/include/c++/11/pstl/pstl_config.h /usr/include/assert.h \
- /home/fly/projects/chatServer/chatServer/include/crypto/Hash.h \
+ /home/fly/projects/chatServer/chatServer/crypto/Hash.h \
  /usr/include/c++/11/string /usr/include/c++/11/bits/stringfwd.h \
  /usr/include/c++/11/bits/memoryfwd.h \
  /usr/include/c++/11/bits/char_traits.h \

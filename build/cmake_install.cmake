@@ -46,6 +46,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/fly/projects/chatServer/chatServer/build/src/cmake_install.cmake")
   include("/home/fly/projects/chatServer/chatServer/build/crypto/cmake_install.cmake")
+  include("/home/fly/projects/chatServer/chatServer/build/netWork/cmake_install.cmake")
 
 endif()
 

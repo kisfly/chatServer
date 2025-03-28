@@ -1,7 +1,9 @@
 #include<vector>
 #include"chatservice.hpp"
 #include"public.hpp"
-#include<muduo/base/Logging.h>
+#include"Logger.h"
+
+
 
 chatService* chatService::getInstance()
 {
@@ -12,15 +14,15 @@ chatService* chatService::getInstance()
 chatService::chatService()
 {
     // 注册消息id和其对应的处理方法
-    _msgHandlerMap[LOGIN_MSG] = bind(&chatService::login, this, _1, _2, _3);
-    _msgHandlerMap[LOGINOUT_MSG]=bind(&chatService::loginout,this,_1,_2,_3);
-    _msgHandlerMap[REG_MSG] = bind(&chatService::reg, this, _1, _2, _3);
-    _msgHandlerMap[ONE_CHAT_MSG] = bind(&chatService::oneChat, this, _1, _2, _3);
-    _msgHandlerMap[ADD_FRIEND_MSG] = bind(&chatService::addFriend, this, _1, _2, _3);
-    _msgHandlerMap[CREATE_GROUP_MSG] = bind(&chatService::createGroup, this, _1, _2, _3);
-    _msgHandlerMap[ADD_GROUP_MSG] = bind(&chatService::addGroup, this, _1, _2, _3);
-    _msgHandlerMap[GROUP_CHAT_MSG] = bind(&chatService::groupChat, this, _1, _2, _3);
-    _msgHandlerMap[AES_KEY_MSG]=bind(&chatService::handleKey, this,_1,_2,_3);
+    _msgHandlerMap[LOGIN_MSG] = bind(&chatService::login, this, _1, _2);
+    _msgHandlerMap[LOGINOUT_MSG]=bind(&chatService::loginout,this,_1,_2);
+    _msgHandlerMap[REG_MSG] = bind(&chatService::reg, this, _1, _2);
+    _msgHandlerMap[ONE_CHAT_MSG] = bind(&chatService::oneChat, this, _1, _2);
+    _msgHandlerMap[ADD_FRIEND_MSG] = bind(&chatService::addFriend, this, _1, _2);
+    _msgHandlerMap[CREATE_GROUP_MSG] = bind(&chatService::createGroup, this, _1, _2);
+    _msgHandlerMap[ADD_GROUP_MSG] = bind(&chatService::addGroup, this, _1, _2);
+    _msgHandlerMap[GROUP_CHAT_MSG] = bind(&chatService::groupChat, this, _1, _2);
+    _msgHandlerMap[AES_KEY_MSG]=bind(&chatService::handleKey, this,_1,_2);
 
      // 连接redis服务器
      if (_redis.connect())
@@ -40,16 +42,16 @@ MsgHandler chatService::getHandler(int msgid)
     auto it = _msgHandlerMap.find(msgid);
     if (it == _msgHandlerMap.end()) 
     {
-        return [=](const TcpConnectionPtr&, const string&, Timestamp) 
+        return [=](const spConnection&,const string&) 
         {
-            LOG_ERROR << "can not find handler for msgid: " << msgid;
+            LOG_ERROR("can not find handler for msgid: ",msgid);
         };
     }
     return it->second;
 }
 
 //处理登录业务
-void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::login(const spConnection& conn, json& js)
 {
     //获取js中的数据
     int id=js["id"].get<int>();
@@ -79,11 +81,11 @@ void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
                 }
                 else
                 {
-                    LOG_ERROR << "can not find aeskey for conn: " ;
+                    LOG_ERROR("can not find aeskey for conn");
                 }
             }            
             conn->send(sendbuf.c_str(),sendbuf.size());
-            LOG_INFO << "user is already online, name: " << user.getName()<<"\n";
+            LOG_INFO("user is already online, name: ",user.getName());
             return;
         }
 
@@ -165,9 +167,6 @@ void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
             response["groups"] = groupArray1;
         }
 
-        LOG_INFO<<"================================================\n";
-        LOG_INFO<<response.dump()<<"\n";
-        LOG_INFO<<"================================================\n";
         {
             lock_guard<mutex> lock(_keyMutex);
             //获取conn在哈希表中找到AesCrypto
@@ -178,7 +177,7 @@ void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
             }
             else
             {
-                LOG_ERROR << "can not find aeskey for conn: " ;
+                LOG_ERROR("can not find aeskey for conn: ") ;
             }
         }    
         //LOG_INFO<<"base之前的发送的数据长度："<<sendbuf.size()<<"\n";
@@ -187,7 +186,7 @@ void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
         //LOG_INFO<<"不使用base发送的数据长度："<<sendbuf.size()<<"\n";
         conn->send(sendbuf.c_str(),sendbuf.size());
         //生成一个
-        LOG_INFO << "login success, name: " << user.getName()<<"\n";        
+        LOG_INFO("login success, name: ",user.getName());        
     }
     else
     {
@@ -206,15 +205,15 @@ void chatService::login(const TcpConnectionPtr& conn, json& js, Timestamp time)
             }
             else
             {
-                LOG_ERROR << "can not find aeskey for conn: " ;
+                LOG_ERROR("can not find aeskey for conn: " );
             }
         }            
         conn->send(sendbuf.c_str(),sendbuf.size());
-        LOG_INFO << "login failed, name: " << user.getName()<<"\n";
+        LOG_INFO ("login failed, name: ",user.getName());
     }    
 }
 //处理注册业务
-void chatService::reg(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::reg(const spConnection& conn, json& js)
 {
     //获取js对象中的名称
     string name = js["name"];
@@ -247,11 +246,11 @@ void chatService::reg(const TcpConnectionPtr& conn, json& js, Timestamp time)
             }
             else
             {
-                LOG_ERROR << "can not find aeskey for conn: " ;
+                LOG_ERROR("can not find aeskey for conn: ") ;
             }
         }            
         conn->send(sendbuf.c_str(),sendbuf.size());
-        LOG_INFO << "register success, name: " << name<<"\n";
+        LOG_INFO ("register success, name: ",name);
     }
     else
     {
@@ -270,15 +269,15 @@ void chatService::reg(const TcpConnectionPtr& conn, json& js, Timestamp time)
             }
             else
             {
-                LOG_ERROR << "can not find aeskey for conn: " ;
+                LOG_ERROR("can not find aeskey for conn: ") ;
             }
         }            
         conn->send(sendbuf.c_str(),sendbuf.size());
-        LOG_INFO << "register failed, name: " << name<<"\n";
+        LOG_INFO("register failed, name: ",name);
     }
 }
 
-void chatService::clientCloseException(const TcpConnectionPtr& conn)
+void chatService::clientCloseException(const spConnection& conn)
 {
     User user;
     {
@@ -319,7 +318,7 @@ void chatService::clientCloseException(const TcpConnectionPtr& conn)
     }
 }
 
-void chatService::oneChat(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::oneChat(const spConnection & conn, json& js)
 {
     //获取你要通话的人的id
     int toId=js["to"].get<int>();
@@ -340,7 +339,7 @@ void chatService::oneChat(const TcpConnectionPtr& conn, json& js, Timestamp time
                 }
                 else
                 {
-                    LOG_ERROR << "can not find aeskey for conn: " ;
+                    LOG_ERROR("can not find aeskey for conn: ") ;
                 }
             }                    
             it->second->send(sendbuf.c_str(),sendbuf.size());
@@ -368,7 +367,7 @@ void chatService::reset()
     m_redis.resetUserState();
 }
 
-void chatService::addFriend(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::addFriend(const spConnection& conn, json& js)
 {
     // 获取js对象的id
     int userid=js["id"].get<int>();
@@ -380,7 +379,7 @@ void chatService::addFriend(const TcpConnectionPtr& conn, json& js, Timestamp ti
 }
 
 //创建一个群聊
-void chatService::createGroup(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::createGroup(const spConnection& conn, json& js)
 {
     // 获取js对象的id
     int userid=js["id"].get<int>();
@@ -400,15 +399,15 @@ void chatService::createGroup(const TcpConnectionPtr& conn, json& js, Timestamp 
     {
         //然后再加入GroupUser表中
         _groupModel.addGroup(userid, group.getId(),"creator");        
-        LOG_INFO << "create group success, groupid: " << group.getId()<<"\n";
+        LOG_INFO ("create group success, groupid: ",group.getId());
     }
     else
     {
-        LOG_INFO<<"create group failed\n";
+        LOG_INFO("create group failed");
     }
 }
 //加入群聊
-void chatService::addGroup(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::addGroup(const spConnection& conn, json& js)
 {
     // 获取js对象的id
     int userid=js["id"].get<int>();
@@ -417,10 +416,10 @@ void chatService::addGroup(const TcpConnectionPtr& conn, json& js, Timestamp tim
 
     // 加入群
     _groupModel.addGroup(userid, groupid,"normal");
-    LOG_INFO << "add group success, groupid: " << groupid<<"\n";     
+    LOG_INFO("add group success, groupid: ",groupid);     
 }
 //进行群聊天
-void chatService::groupChat(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::groupChat(const spConnection& conn, json& js)
 {
     // 获取js对象的id
     int userid=js["id"].get<int>();
@@ -452,7 +451,7 @@ void chatService::groupChat(const TcpConnectionPtr& conn, json& js, Timestamp ti
                     }
                     else
                     {
-                        LOG_ERROR << "can not find aeskey for conn: " ;
+                        LOG_ERROR("can not find aeskey for conn: ") ;
                     }
                 }     
                 it->second->send(sendbuf.c_str(),sendbuf.size());
@@ -475,10 +474,10 @@ void chatService::groupChat(const TcpConnectionPtr& conn, json& js, Timestamp ti
         }
     }
     
-    LOG_INFO << "group chat success, userid: " << userid<<"\n";     
+    LOG_INFO("group chat success, userid: ",userid);     
 }
 
-void chatService::loginout(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::loginout(const spConnection& conn, json& js)
 {
     // 获取js对象的id
     int userid=js["id"].get<int>();
@@ -498,7 +497,7 @@ void chatService::loginout(const TcpConnectionPtr& conn, json& js, Timestamp tim
     User user(userid,"","offline");
     //_userModel.updateState(user);
     m_redis.updateUser(user);
-    LOG_INFO << "loginout success, userid: " << userid<<"\n";
+    LOG_INFO("loginout success, userid: ",userid);
 }
 
 void chatService::handleRedisSubscribeMessage(int userid, string msg)
@@ -519,7 +518,7 @@ void chatService::handleRedisSubscribeMessage(int userid, string msg)
             }
             else
             {
-                LOG_ERROR << "can not find aeskey for conn: " ;
+                LOG_ERROR("can not find aeskey for conn: ") ;
             }
         }     
         it->second->send(sendbuf.c_str(),sendbuf.size());
@@ -531,7 +530,7 @@ void chatService::handleRedisSubscribeMessage(int userid, string msg)
 }
 
 //处理客户端发送过来的密钥
-void chatService::handleKey(const TcpConnectionPtr& conn, json& js, Timestamp time)
+void chatService::handleKey(const spConnection& conn, json& js)
 {
     //获取密钥加密后的数据
     string aeskey=js["aeskey"].get<string>();
@@ -553,18 +552,18 @@ void chatService::handleKey(const TcpConnectionPtr& conn, json& js, Timestamp ti
     resJs["msgid"]=AES_KEY_ACK;    
     if(res!=hashkey)
     {
-        LOG_INFO<<"AES key error\n";
+        LOG_INFO("AES key error");
         resJs["aeskeyOK"]=false;
-        conn->send(resJs.dump());
+        conn->send(resJs.dump().c_str(),resJs.dump().size());
         return;
     }
     resJs["aeskeyOK"]=true;
-    conn->send(resJs.dump());
+    conn->send(resJs.dump().c_str(),resJs.dump().size());
     //生成一个对称加密的对象
     AesCrypto* m_aescry=new AesCrypto(AesCrypto::AES_CBC_256,m_aesKey);
     //插入到哈希表中
     _connKeyMap.insert({conn,m_aescry});
-    LOG_INFO<<"AES key SUCCESS\n";    
+    LOG_INFO("AES key SUCCESS");    
 }
 
 //使用对称加密的密钥加密数据,并返回加密后的数据
@@ -581,7 +580,7 @@ string chatService::aesDecrypt(string data,AesCrypto* cipher)
     return str1;
 }
 
-AesCrypto* chatService::getAesCrypto(const TcpConnectionPtr& conn)
+AesCrypto* chatService::getAesCrypto(const spConnection& conn)
 {
     //根据conn在哈希表中找到AesCrypto            
     {

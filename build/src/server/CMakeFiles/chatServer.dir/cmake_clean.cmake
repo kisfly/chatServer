@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "/home/fly/projects/chatServer/chatServer/bin/chatServer"
   "/home/fly/projects/chatServer/chatServer/bin/chatServer.pdb"
+  "CMakeFiles/chatServer.dir/Logger.cpp.o"
+  "CMakeFiles/chatServer.dir/Logger.cpp.o.d"
   "CMakeFiles/chatServer.dir/chatserver.cpp.o"
   "CMakeFiles/chatServer.dir/chatserver.cpp.o.d"
   "CMakeFiles/chatServer.dir/chatservice.cpp.o"

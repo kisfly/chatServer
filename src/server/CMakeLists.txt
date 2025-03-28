@@ -10,12 +10,13 @@ aux_source_directory(./redis REDIS_LIST)
 link_directories(${LIB_PATH})
 #链接静态库
 link_libraries(${MYCRYPTO_LIB})
+link_libraries(${MYNET_LIB})
 
 #指定生成可执行文件
 add_executable(chatServer ${SRC_LIST} ${DB_LIST} ${MODEL_LIST} ${REDIS_LIST})
 
 
 #添加需要链接的动态库
-target_link_libraries(chatServer muduo_net muduo_base mysqlclient hiredis redis++ pthread)
+target_link_libraries(chatServer mysqlclient hiredis redis++ log4cpp pthread)
 
 
